@@ -9,6 +9,7 @@ urlcolor: blue
 ---
 
 <!--
+Controllare checklist ER
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
 for code styling check (anche no, bene il default):
 https://learnbyexample.github.io/customizing-pandoc/
@@ -154,6 +155,18 @@ attori o registi. Per gli artisti è registrata una scheda personale contenente:
 foto, nome, cognome, data e luogo di nascita, biografia e gli ultimi contenuti
 a cui ha partecipato.
 
+## Schema E-R + business rules
+
+### Scherma E-R
+
+### Business rules
+
+* Quando un utente viene cancellato i voti espressi rimangono, dati personali e preferiti vengono rimossi.
+* Il valore del voto è compreso tra 1 e 5 stelline.
+* L'attributo voto medio di un contenuto indica la media dei voti assegnati dagli utenti.
+* Per il singolo artista viene mantenuta una lista dei contenuti a cui ha partecipato.
+* I redattori aggiornano le informazioni relative ai contenuti. (? e degli artisti)
+
 \newpage
 
 # Progettazione logica
@@ -161,8 +174,7 @@ a cui ha partecipato.
 ## Tavola dei volumi
 
 \begin{table}[h!]
-\centering
-\resizebox{\textwidth}{!}{%
+\begin{adjustwidth}{-.6in}{-.9in}
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Tipo}                  & \textit{Volume}              & \textit{Motivazione}                                                                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Utente}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.000}  & \multicolumn{1}{l|}{Approssimazione della somma tra Iscritti e Redattori}                                                                                                                                                                                                      \\ \hline
@@ -189,5 +201,5 @@ a cui ha partecipato.
 \multicolumn{1}{|l|}{\textbf{Regista}}        & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{2.000}   & \multicolumn{1}{l|}{Si considera una media di 20 cotenuti girati per regista}                                                                                                                                                                                                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Artisti}}        & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{5.000}   & \multicolumn{1}{l|}{Dati approssimati ComingSoon}                                                                                                                                                                                                                              \\ \hline
 \end{tabular}%
-}
+\end{adjustwidth}
 \end{table}
