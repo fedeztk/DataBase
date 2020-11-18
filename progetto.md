@@ -1,7 +1,9 @@
 ---
 lang: it-IT
 title: "Basi di Dati, Progetto di Laboratorio"
-author: "Federico Serra, matricola 898925"
+author:
+- "Federico Serra, matricola 898925"
+- "Alessandro Nocera, matricola 886732"
 numbersections: true
 urlcolor: blue
 ---
@@ -26,7 +28,7 @@ Degli utenti si memorizzano nome utente, password e indirizzo email.
 Per i redattori si tiene traccia anche della data di inizio collaborazione.
 
 I contenuti hanno una serie di caratteristiche ~~come evidenziato in Figura 1~~,
-quali: data di uscita, genere, anno, regia, attori, paese, durata, distribuzione,
+quali: data di uscita, genere, anno, regia, paese, durata, distribuzione,
 sceneggiatura, fotografia, musiche e produzione.
 In particolare, a ogni film e serie TV è associata una lista di attori, con
 l’indicazione del personaggio interpretato.
@@ -65,13 +67,13 @@ dal visitatore rimangono in memoria.
 ## Glossario dei termini
 
 \
-
+<!--
 \begin{table}[h!]
 \begin{adjustwidth}{-.9in}{-.9in}  
 \centering
 \begin{tabular}{llll}
 \textit{Termine}                           & \textit{Descrizione}                                                                                                                                              & \textit{Sinonimi}                                                                                                     & \textit{Collegamento}                                                                           \\ \hline
-\multicolumn{1}{|l|}{\textbf{Piattaforme}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Servizi che rendono disponibili\\ agli utenti i contenuti. Possono\\ essere televisivi o informatici\end{tabular}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}canali TV tradizionali,\\ piattaforme di streaming video\end{tabular}} & \multicolumn{1}{l|}{Utenti, contenuti}                                                          \\ \hline
+\multicolumn{1}{|l|}{\textbf{Piattaforme}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Servizi che rendono disponibili\\ agli utenti i contenuti. Possono\\ essere televisivi o informatici\end{tabular}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}canali TV tradizionali,\\ piattaforme di streaming video\end{tabular}} & \multicolumn{1}{l|}{Serie}                                                          \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuti}}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Insieme di produzioni\\ audiovisive (film e serie)\end{tabular}}                                                   & \multicolumn{1}{l|}{programmi TV, serie, film}                                                                        & \multicolumn{1}{l|}{Film, serie}                                                                \\ \hline
 \multicolumn{1}{|l|}{\textbf{Utenti}}      & \multicolumn{1}{l|}{Persona che usufruisce del sito}                                                                                                              & \multicolumn{1}{l|}{visitatore, visitatori}                                                                           & \multicolumn{1}{l|}{}                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Iscritti}}    & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Persona registrata sul sito.\\ Può votare\end{tabular}}                                                   & \multicolumn{1}{l|}{}                                                                                                 & \multicolumn{1}{l|}{Voto}                                                                       \\ \hline
@@ -88,26 +90,66 @@ dal visitatore rimangono in memoria.
 \end{tabular}
 \end{adjustwidth}
 \end{table}
+-->
+
+\begin{table}[h!]
+\begin{adjustwidth}{-.9in}{-.9in}
+\centering
+\begin{tabular}{llll}
+\textit{Termine}                           & \textit{Descrizione}                                                                                                                               & \textit{Sinonimi}                                   & \textit{Collegamento}                                                                          \\ \hline
+\multicolumn{1}{|l|}{\textbf{Piattaforme}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Servizi informatici che rendono \\ disponibili agli utenti le stagioni\\ di una serie\end{tabular}} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Piattaforme di streaming\\ video\end{tabular}} & \multicolumn{1}{l|}{Serie}                                                                     \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuti}}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Insieme di produzioni\\ audiovisive (film, serie e programmi)\end{tabular}}                         & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Film, serie, programmi}                                                    \\ \hline
+\multicolumn{1}{|l|}{\textbf{Utente}}    & \multicolumn{1}{l|}{Persona registrata sul sito}                                                                                                   & \multicolumn{1}{l|}{Visitatori}                                                               & \multicolumn{1}{l|}{Voto}                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Redattore}}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Utente che aggiorna informazioni\\ riguardanti i contenuti presenti\\ sul sito\end{tabular}}       & \multicolumn{1}{l|}{Utenti della redazione}                                                   & \multicolumn{1}{l|}{Voto}                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Serie}}       & \multicolumn{1}{l|}{Serie TV disponibili sul sito}                                                                                                 & \multicolumn{1}{l|}{Serie TV, serial}                                                         & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Stagione, episodio,\\ piattaforma\end{tabular}} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Stagione}}    & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Raggruppamento in episodi di una\\ serie\end{tabular}}                                              & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Episodio, serie}                                                           \\ \hline
+\multicolumn{1}{|l|}{\textbf{Episodio}}    & \multicolumn{1}{l|}{Singola unità di una stagione}                                                                                                 & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Stagione, attore, regista}                                                 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Film}}        & \multicolumn{1}{l|}{Film presenti sul sito}                                                                                               & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Cinema, attore, regista}                                                   \\ \hline
+\multicolumn{1}{|l|}{\textbf{Attore}}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Colui che recita in un contenuto\\ interpretando un ruolo\end{tabular}}                             & \multicolumn{1}{l|}{Persona}                                                                  & \multicolumn{1}{l|}{Contenuto}                                                                 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Regista}}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Colui che si occupa della regia\\ dei contenuti\end{tabular}}                                       & \multicolumn{1}{l|}{Regia, persona}                                                           & \multicolumn{1}{l|}{Contenuto}                                                                 \\ \hline
+\multicolumn{1}{|l|}{\textbf{Cinema}}      & \multicolumn{1}{l|}{Luogo in cui è proiettato un film}                                                                                             & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Film}                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}        & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Voto numerico (da 1 a 5 stelline) \\ espresso da un utente del sito\end{tabular}}                   & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Contenuto, utente}                                                         \\ \hline
+\end{tabular}%
+\end{adjustwidth}
+\end{table}
 
 \newpage
 
 ## Requisiti rivisti e strutturati in gruppi di frasi omogenee
 
-* **Frasi di carattere generale:** Si vuole realizzare una base di dati per la gestione di una piattaforma che fornisce
+* **Frasi di carattere generale:** Si vuole realizzare una base di dati per la gestione di un sito che fornisce
 informazioni su film in uscita nei cinema e su serie e programmi TV in onda,
 liberamente ispirato a piattaforme come ComingSoon.
 
 * **Frasi relative agli utenti:** Gli utenti possono essere di due tipologie: iscritti o redattori.
-Gli utenti si memorizzano tramite nome utente, password e indirizzo email.
+Entrambi si registrano tramite email e password. Possono votare e aggiungere ai preferiti qualunque contenuto.
+Nel momento della cancellazione di un utente dal sito, i suoi preferiti possono essere rimossi dal database,
+mentre i voti espressi rimangono in memoria.
+Per gli utenti si memorizzano nome utente, password e indirizzo email.
 
 * **Frasi relative ai redattori:** I redattori sono utenti che si occupano di aggiornare le
-informazioni sui contenuti disponibili inserendo i dati di film e serie,
-comprese le date di uscita e programmazione in sala e in TV.
-Per i redattori si tiene traccia anche della data di inizio collaborazione.
+informazioni sui contenuti disponibili inserendo i dati dei contenuti,
+comprese le date di uscita e programmazione nei cinema e nei canali televisivi.
+Per i redattori si registra anche della data di inizio collaborazione.
 
-* **Frasi relative agli iscritti:** Gli iscritti si registrano tramite email e password. 
-Possono votare e aggiungere ai preferiti qualunque contenuto. Nel momento della cancellazione
-di un utente dal sito, i suoi preferiti possono essere rimossi dal database, mentre i voti espressi
-dal visitatore rimangono in memoria.
+* **Frasi relative ai contenuti:** I contenuti possono essere di tre tipi: serie, film e programmi.
+Per i contenuti rappresentiamo: titolo, data di uscita,
+genere, paese, durata, distribuzione, produzione e i membri della troupe
+(attori con relativo personaggio interpretato, regista, sceneggiatori, i direttori
+della fotografia, i responsabili delle musiche).\
+Per i programmi memorizziamo anche il canale dove è disponibile il contenuto. \
+Per i film memorizziamo invece anche i cinema dove saranno disponibili.
 
-* **Frasi relative ai contenuti:** 
+* **Frasi relative alle serie:** Le serie sono contenuti divisi in stagioni.
+Le stagioni vanno in onda su siti di streaming online e sono divise in
+episodi. Per ogni episodio si memorizza titolo, durata, regista, sceneggiatore e la lista di attori
+che vi partecipano.
+
+* **Frasi relative ai cinema:** Per i cinema rappresentiamo nome, contatti, e
+localizzazione (regione, provincia e indirizzo). La proiezione dei film è caratterizzata
+da: una sala del cinema, una data e un'ora, il prezzo del biglietto.
+
+* **Frasi relative agli artisti:** Gli artisti possono essere
+attori o registi. Per gli artisti è registrata una scheda personale contenente:
+foto, nome, cognome, data e luogo di nascita, biografia e gli ultimi contenuti
+a cui ha partecipato.
