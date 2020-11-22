@@ -9,7 +9,8 @@ urlcolor: blue
 ---
 
 <!--
-Controllare checklist ER
+TODO
+Controllare nomi nello schema ER e aggiornare il resto di conseguenza
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
 for code styling check (anche no, bene il default):
 https://learnbyexample.github.io/customizing-pandoc/
@@ -126,7 +127,7 @@ da: una sala del cinema, una data e un'ora, il prezzo del biglietto.
 
 * **Frasi relative agli artisti:** Gli artisti possono essere
 attori o registi. Per gli artisti è registrata una scheda personale contenente:
-foto, nome, cognome, data e luogo di nascita, biografia e gli ultimi contenuti
+foto, nome, cognome, età, data e luogo di nascita, biografia e gli ultimi contenuti
 a cui ha partecipato.
 
 ## Schema E-R + business rules
@@ -193,7 +194,7 @@ a cui ha partecipato.
 \multicolumn{1}{|l|}{\textbf{Cancellazione utente}}                                                                    & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{1/giorno}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si considera che l'eliminazione avvenga \\ meno raramente della registrazione, si \\ ottiene così una media di +9 utenti/giorno \\ coerente con i valori riportati nella tavola\\ dei volumi\end{tabular}} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Modifica dati utente}}                                                                    & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{5/mese}         & \multicolumn{1}{l|}{Operazione fatta raramente}                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Assegnazione di un voto a \\ contenuto\end{tabular}}}          & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{45/giorno}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si considera il numero di voti dopo 15 anni\\ di attività\end{tabular}}                                                                                                                                    \\ \hline
-\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Aggiornamento voto medio\\ di un contenuto\end{tabular}}}      & \multicolumn{1}{l|}{batch}        & \multicolumn{1}{l|}{45/giorno}      & \multicolumn{1}{l|}{Uguale al numero di assegnazioni di voto}                                                                                                                                                                                             \\ \hline
+\multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Aggiornamento voto medio\\ di un contenuto\end{tabular}}}      & \multicolumn{1}{l|}{Batch}        & \multicolumn{1}{l|}{45/giorno}      & \multicolumn{1}{l|}{Uguale al numero di assegnazioni di voto}                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Aggiunta di un contenuto \\ ai preferito\end{tabular}}}        & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{45/giorno}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Numero totale dei preferiti suddivisi in 15 \\ anni di attività\end{tabular}}                                                                                                                              \\ \hline
 \multicolumn{1}{|l|}{\textbf{\begin{tabular}[c]{@{}l@{}}Eliminazione di un contenuto \\ tra i preferiti\end{tabular}}} & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{1/giorno}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Molto inferiore al numero di aggiunta dei \\ preferiti\end{tabular}}                                                                                                                                        \\ \hline
 \multicolumn{1}{|l|}{\textbf{Aggiunta di un contenuto}}                                                                & \multicolumn{1}{l|}{Interattivo} & \multicolumn{1}{l|}{3/giorno}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si considerano film e serie presenti sulla \\ piattaforma dopo 15 anni di attività\end{tabular}}                                                                                                           \\ \hline
@@ -210,3 +211,95 @@ a cui ha partecipato.
 \end{table}
 
 \newpage
+
+## Ristrutturazione dello schema E-R
+
+### Analisi delle ridondanze
+
+1. Attributo "età" di "artista" (attributo derivabile): l'attributo "età" è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato ("età") secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
+2. "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{cardinalita voto}{totale punteggi} = voto medio$.
+
+Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
+
+![](./merge/snippetRidondanza.png){ width=70% }
+
+**Operazione 1 - assegnazione di un voto a un contenuto - **
+
+*Accessi con ridondanza:*
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura}   \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\end{tabular}%
+\end{table}
+
+Il costo è di $(45*2) + 45 + (45*2) + (45*2) = 315$ accessi al giorno, contando gli accessi in scrittura come doppi.
+
+*Accessi senza ridondanza:*
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\textit{Concetto}                             & \textit{Costrutto}          & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\end{tabular}%
+\end{table}
+
+Il costo è di $(45*2) (45*2) = 180$ accessi al giorno, contando gli accessi in scrittura come doppi.
+
+**Operazione 2 - visualizzazione contenuto (include il voto medio) - **
+
+*Accessi con ridondanza:*
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\textit{Concetto}                        & \textit{Costrutto}          & \textit{Accessi}       & \textit{Tipo}                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuto}} & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\end{tabular}%
+\end{table}
+
+Il costo è di $500000$ accessi al giorno.
+
+*Accessi senza ridondanza:*
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{llll}
+\textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\end{tabular}%
+\end{table}
+
+Il costo è di $500000 + 500000 + 500000 = 1500000$ accessi al giorno.
+
+_**Con ridondanze (operazione 1 + operazione 2):**_ \newline
+Costo totale in numero di accessi $315 + 500000 = 500315$.
+
+_**Senza ridondanze (operazione 1 + operazione 2):**_ \newline
+Costo totale in numero di accessi $180 + 1500000 = 1500180$.
+
+Costi aggiuntivi in termini di spazio: \
+Ipotesi: si utilizzano $4 byte$ per memorizzare il valore del voto medio. \
+Spazio totale necessario: $4 * 40000 = 160000 = 160 Kbyte$ 
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lll}
+                                       & \textit{Con ridondanza}        & \textit{Senza ridondanza}    \\ \cline{2-3} 
+\multicolumn{1}{l|}{\textit{Numero accessi}}    & \multicolumn{1}{l|}{500315}    & \multicolumn{1}{l|}{1500180} \\ \cline{2-3} 
+\multicolumn{1}{l|}{\textit{Spazio aggiuntivo}} & \multicolumn{1}{l|}{160 Kbyte} & \multicolumn{1}{l|}{0 Kbyte} \\ \cline{2-3} 
+\end{tabular}
+\end{table}
+
+#### Decisione
+Considerata la differenza di circa 1000000 di accessi e lo spreco di memoria non ingente, si è scelto di lasciare la ridondanza,
+essendo anche l'operazione 2 la più frequente sulla base di dati.
