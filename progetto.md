@@ -11,6 +11,8 @@ urlcolor: blue
 <!--
 TODO
 Controllare nomi nello schema ER e aggiornare il resto di conseguenza
+NOTE
+in troupe -> sceneggiatura fotografia musiche
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
 for code styling check (anche no, bene il default):
 https://learnbyexample.github.io/customizing-pandoc/
@@ -217,17 +219,22 @@ a cui ha partecipato.
 ### Analisi delle ridondanze
 
 1. Attributo "età" di "artista" (attributo derivabile): l'attributo "età" è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato ("età") secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
-2. "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{cardinalita voto}{totale punteggi} = voto medio$.
+2. "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$.
 
 Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
 
-![](./merge/snippetRidondanza.png){ width=70% }
+\begin{figure}
+    \centering 
+    \includegraphics[width=200pt]{./merge/snippetRidondanza.png}
+\end{figure}
+
+<!-- ![](./merge/snippetRidondanza.png){ width=50% } --> 
 
 **Operazione 1 - assegnazione di un voto a un contenuto - **
 
 *Accessi con ridondanza:*
 
-\begin{table}[h!]
+\begin{table}[h]
 \centering
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
@@ -238,11 +245,11 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \end{tabular}%
 \end{table}
 
-Il costo è di $(45*2) + 45 + (45*2) + (45*2) = 315$ accessi al giorno, contando gli accessi in scrittura come doppi.
+\centerline{Il costo è di $(45*2) + 45 + (45*2) + (45*2) = 315$ accessi al giorno, contando gli accessi in scrittura come doppi.}
 
 *Accessi senza ridondanza:*
 
-\begin{table}[h]
+\begin{table}[h!]
 \centering
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}          & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
@@ -251,7 +258,7 @@ Il costo è di $(45*2) + 45 + (45*2) + (45*2) = 315$ accessi al giorno, contando
 \end{tabular}%
 \end{table}
 
-Il costo è di $(45*2) (45*2) = 180$ accessi al giorno, contando gli accessi in scrittura come doppi.
+\centerline{Il costo è di $(45*2) (45*2) = 180$ accessi al giorno, contando gli accessi in scrittura come doppi.}
 
 **Operazione 2 - visualizzazione contenuto (include il voto medio) - **
 
@@ -265,11 +272,11 @@ Il costo è di $(45*2) (45*2) = 180$ accessi al giorno, contando gli accessi in 
 \end{tabular}%
 \end{table}
 
-Il costo è di $500000$ accessi al giorno.
+\centerline{Il costo è di $500000$ accessi al giorno.}
 
 *Accessi senza ridondanza:*
 
-\begin{table}[h!]
+\begin{table}[h]
 \centering
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
@@ -279,19 +286,21 @@ Il costo è di $500000$ accessi al giorno.
 \end{tabular}%
 \end{table}
 
-Il costo è di $500000 + 500000 + 500000 = 1500000$ accessi al giorno.
+\centerline{Il costo è di $500000 + 500000 + 500000 = 1500000$ accessi al giorno.}
 
-_**Con ridondanze (operazione 1 + operazione 2):**_ \newline
+**Operazione 1 + operazione 2 - costi totali -**
+
+*Con ridondanze (operazione 1 + operazione 2):* \newline
 Costo totale in numero di accessi $315 + 500000 = 500315$.
 
-_**Senza ridondanze (operazione 1 + operazione 2):**_ \newline
+*Senza ridondanze (operazione 1 + operazione 2):* \newline
 Costo totale in numero di accessi $180 + 1500000 = 1500180$.
 
-Costi aggiuntivi in termini di spazio: \
+*Costi aggiuntivi in termini di spazio:* \
 Ipotesi: si utilizzano $4 byte$ per memorizzare il valore del voto medio. \
 Spazio totale necessario: $4 * 40000 = 160000 = 160 Kbyte$ 
 
-\begin{table}[h!]
+\begin{table}[h]
 \centering
 \begin{tabular}{lll}
                                        & \textit{Con ridondanza}        & \textit{Senza ridondanza}    \\ \cline{2-3} 
@@ -300,6 +309,8 @@ Spazio totale necessario: $4 * 40000 = 160000 = 160 Kbyte$
 \end{tabular}
 \end{table}
 
-#### Decisione
+**Decisione:**\
 Considerata la differenza di circa 1000000 di accessi e lo spreco di memoria non ingente, si è scelto di lasciare la ridondanza,
 essendo anche l'operazione 2 la più frequente sulla base di dati.
+
+### Eliminazione delle generalizzazioni
