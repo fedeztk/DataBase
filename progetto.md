@@ -11,6 +11,9 @@ urlcolor: blue
 <!--
 TODO
 Controllare nomi nello schema ER e aggiornare il resto di conseguenza
+FIX
+- identificatori nell'associazione proiezione
+- top pagina 9 ex esame
 NOTE
 in troupe -> sceneggiatura fotografia musiche
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
@@ -219,7 +222,7 @@ a cui ha partecipato.
 ### Analisi delle ridondanze
 
 1. Attributo "età" di "artista" (attributo derivabile): l'attributo "età" è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato ("età") secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
-2. "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$.
+2. Attributo "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto" facente riferimento ad un dato "contenuto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
 
 Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
 
@@ -245,7 +248,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \end{tabular}%
 \end{table}
 
-\centerline{Il costo è di $(45*2) + 45 + (45*2) + (45*2) = 315$ accessi al giorno, contando gli accessi in scrittura come doppi.}
+\centerline{Il costo è di $(45\times2) + 45 + (45\times2) + (45\times2) = 315$ accessi al giorno, contando gli accessi in scrittura come doppi.}
 
 *Accessi senza ridondanza:*
 
@@ -258,7 +261,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \end{tabular}%
 \end{table}
 
-\centerline{Il costo è di $(45*2) (45*2) = 180$ accessi al giorno, contando gli accessi in scrittura come doppi.}
+\centerline{Il costo è di $(45\times2) + (45\times2) = 180$ accessi al giorno, contando gli accessi in scrittura come doppi.}
 
 **Operazione 2 - visualizzazione contenuto (include il voto medio) - **
 
@@ -298,7 +301,7 @@ Costo totale in numero di accessi $180 + 1500000 = 1500180$.
 
 *Costi aggiuntivi in termini di spazio:* \
 Ipotesi: si utilizzano $4 byte$ per memorizzare il valore del voto medio. \
-Spazio totale necessario: $4 * 40000 = 160000 = 160 Kbyte$ 
+Spazio totale necessario: $4 \times 40000 = 160000 = 160 Kbyte$ 
 
 \begin{table}[h]
 \centering
