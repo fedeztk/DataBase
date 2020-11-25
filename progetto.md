@@ -149,7 +149,10 @@ a cui ha partecipato.
 * Il valore del voto è compreso tra 1 e 5 stelle.
 * L'attributo voto medio di un contenuto indica la media dei voti assegnati dagli utenti.
 * Per il singolo artista viene mantenuta una lista dei contenuti a cui ha partecipato.
-* I redattori aggiornano le informazioni relative ai contenuti. (? e degli artisti)
+* I redattori aggiornano le informazioni relative ai contenuti.
+* L'attributo ruolo dell'associazione partecipazione può assumere i valori regista o attore. Nel primo caso l'attributo
+personaggio interpretato avrà valore `NULL`, nel secondo invece avrà come valore il nome del personaggio interpretato dall'attore
+all'interno del contenuto.
 
 \newpage
 
@@ -164,21 +167,21 @@ a cui ha partecipato.
 \multicolumn{1}{|l|}{\textbf{Utente}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.000}  & \multicolumn{1}{l|}{Approssimazione della somma tra Iscritti e Redattori}                                                                                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Iscritto}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.000}  & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Ci si basa sulla piattaforma italiana mymovies che \\ contava nel 2018 una media di 500.000 utenti unici\\ giornalieri, si suppone che il 10\% sia registrato.\end{tabular}}                                                     \\ \hline
 \multicolumn{1}{|l|}{\textbf{Redattore}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Mymovies conta 5 content manager, più altri collaboratori.\\ Si sceglie 10 come numero di profili abilitati alla modifica \\ calcolandone uno per ogni content manager più altri 5 \\ divisi tra i collaboratori.\end{tabular}} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Preferisce}}     & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{Si considera una media di 5 film preferiti per utente}                                                                                                                                                                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{5}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Preferisce}}     & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{Si considera una media di 5 film preferiti per utente}                                                                                                                                                                                                     \\ \hline
+\multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{5}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voti}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Da mymovies si evince che ci sono circa \\ 200.00 recensioni totali, si considera un voto per recensione \\ più un voto per utente che non lascia il commento\end{tabular}}                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuti}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies\tablefootnote{Articolo mymovies: \url{www.mymovies.com}}}                                                                                                                                                                                                              \\ \hline
-\multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{20}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
+\multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{20}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
 \multicolumn{1}{|l|}{\textbf{Programma}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{Film}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10.000}  & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
-\multicolumn{1}{|l|}{\textbf{Proiezione}}     & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{420.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che in ogni cinema ci siano 4 spettacoli al giorno, \\ moltiplicati per i 30 giorni (un film rimane in programmazione\\ un mese), moltiplicati per i cinema in Italia\end{tabular}}                                    \\ \hline
+\multicolumn{1}{|l|}{\textbf{Proiezione}}     & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{420.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che in ogni cinema ci siano 4 spettacoli al giorno, \\ moltiplicati per i 30 giorni (un film rimane in programmazione\\ un mese), moltiplicati per i cinema in Italia\end{tabular}}                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Cinema}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Numero di cinema presenti su mymovies}                                                                                                                                                                                                                     \\ \hline
 \multicolumn{1}{|l|}{\textbf{Serie}}          & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1.750}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Approssimazione basata sul fatto che sono 600 le serie\\ presenti su Netflix, considerando che non è presente 1 \\ serie su 3.\end{tabular}}                                                                                \\ \hline
-\multicolumn{1}{|l|}{\textbf{Divisa}}         & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Stesso valore di Stagione.}                                                                                                                                                                                                                                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Divisa}}         & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Stesso valore di Stagione.}                                                                                                                                                                                                                                \\ \hline
 \multicolumn{1}{|l|}{\textbf{Stagione}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Media di 2 stagioni a serie.}                                                                                                                                                                                                                              \\ \hline
-\multicolumn{1}{|l|}{\textbf{Contiene}}       & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Stesso valore di Episodio.}                                                                                                                                                                                                                                \\ \hline
-\multicolumn{1}{|l|}{\textbf{Distribuzione}}  & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{600}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che per ogni piattaforma è presente il circa  il 30\% \\ delle serie.\end{tabular}}                                                                                                                                    \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contiene}}       & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Stesso valore di Episodio.}                                                                                                                                                                                                                                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Distribuzione}}  & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{600}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che per ogni piattaforma è presente il circa  il 30\% \\ delle serie.\end{tabular}}                                                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Episodio}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Media di 8-9 episodi a stagione}                                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Piattaforma}}    & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10}      & \multicolumn{1}{l|}{Si considerano le 10  principali piattaforme in Italia}                                                                                                                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Attore}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.000}   & \multicolumn{1}{l|}{Gli artisti rimanenti togliendo i registi}                                                                                                                                                                                                         \\ \hline
@@ -245,7 +248,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura}   \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -286,7 +289,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Relazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -310,7 +313,7 @@ Spazio totale necessario: $4 \times 40000 = 160000 = 160 Kbyte$
 \begin{tabular}{lll}
                                        & \textit{Con ridondanza}        & \textit{Senza ridondanza}    \\ \cline{2-3} 
 \multicolumn{1}{l|}{\textit{Numero accessi}}    & \multicolumn{1}{l|}{500315}    & \multicolumn{1}{l|}{1500180} \\ \cline{2-3} 
-\multicolumn{1}{l|}{\textit{Spazio aggiuntivo}} & \multicolumn{1}{l|}{160 Kbyte} & \multicolumn{1}{l|}{0 Kbyte} \\ \cline{2-3} 
+\multicolumn{1}{l|}{\textit{Spazio aggiuntivo}} & \multicolumn{1}{l|}{$160 Kbyte$} & \multicolumn{1}{l|}{$0 Kbyte$} \\ \cline{2-3} 
 \end{tabular}
 \end{table}
 
@@ -319,3 +322,61 @@ Considerata la differenza di circa 1000000 di accessi e lo spreco di memoria non
 essendo anche l'operazione 2 la più frequente sulla base di dati.
 
 ### Eliminazione delle generalizzazioni
+
+1. Utente - Iscritto, Redattore (*generalizzazione totale ed esclusiva*)
+
+![](./merge/gen1.jpg)
+
+Motivazione: si è scelto di accorpare le entità figlie della generalizzazione nell'entità padre, semplificando così la base di dati.
+Si è aggiunto a tale scopo un flag $isRedattore$ per indicare se l'utente è un iscritto o un redattore.
+
+2. Artista - Attore, Regista (*generalizzazione totale ed esclusiva*)
+
+![](./merge/gen2.jpg)
+
+Motivazione: si è scelto di accorpare le entità figlie della generalizzazione nell'entità padre, in quanto gli accessi alla tabelle sono per la maggior parte contestuali. Se osserviamo la tavola delle operazioni infatti notiamo che la visualizzazione di un artista avviene 1000 volte
+in un giorno, la visualizzazione di un contenuto (che richiede l'accesso ad entrambe le tabelle) invece occorre 500000 volte nello stesso tempo.
+Per questo accorpamento non è stato necessaria l'aggiunta di attributi, in quanto la differenza tra attore e regista viene già espressa
+dall'attributo ruolo della associazione partecipazione.
+
+3. Contenuto - Programma, Film, Serie (*generalizzazione totale ed esclusiva*)
+
+![](./merge/gen3.jpg)
+
+Motivazione: si è scelto di accorpare la entità padre della generalizzazione nelle entità figlie, in quanto gli accessi alla tabelle figlie sono distinti.
+
+### Partizionamento/accorpamento di entità e associazioni
+
+Non si è valutato necessario il partizionamento e/o l'accorpamento di entità e associazioni a fronte delle operazioni previste sulla base di dati,
+descritte nella tavola delle operazioni.
+
+### Scelta degli identificatori principali
+
+La descrizione degli identificatori principali non è stata trattata in quanto si ritiene sufficientemente auto-esplicativa a partire
+dallo schema E-R + business-rules.
+
+### Schema E-R ristrutturato + business rules
+
+![](./merge/erRistr_2020-11-25_15-37-43.jpg)
+
+**Business rules:**
+
+* Se un utente ha il flag `isRedattore = TRUE` allora l'attributo `data inizio collaborazione IS NOT NULL`.
+* Se viene modificato il flag `isRedattore` a `FALSE` l'attributo `data inizio collaborazione` assume valore `NULL`.
+* Se viene modificato il flag `isRedattore` a `TRUE` l'attributo `data inizio collaborazione` assume come valore la
+data del momento in cui viene modificato il flag (il giorno corrente).
+* Il valore del voto è compreso tra 1 e 5 stelle.
+* L'attributo voto medio di film indica la media dei voti assegnati dagli utenti.
+* L'attributo voto medio di serie indica la media dei voti assegnati dagli utenti.
+* L'attributo voto medio di programma indica la media dei voti assegnati dagli utenti.
+* Per il singolo artista viene mantenuta una lista dei contenuti a cui ha partecipato.
+* Gli utenti con flag `isRedattore = TRUE` aggiornano le informazioni relative a: film, serie, programmi.
+* L'attributo ruolo dell'associazione partecipazione F può assumere i valori regista o attore. Nel primo caso l'attributo
+personaggio interpretato avrà valore `NULL`, nel secondo invece avrà come valore il nome del personaggio interpretato dall'attore
+all'interno del film.
+* L'attributo ruolo dell'associazione partecipazione S può assumere i valori regista o attore. Nel primo caso l'attributo
+personaggio interpretato avrà valore `NULL`, nel secondo invece avrà come valore il nome del personaggio interpretato dall'attore
+all'interno della serie.
+* L'attributo ruolo dell'associazione partecipazione P può assumere i valori regista o attore. Nel primo caso l'attributo
+personaggio interpretato avrà valore `NULL`, nel secondo invece avrà come valore il nome del personaggio interpretato dall'attore
+all'interno del programma.
