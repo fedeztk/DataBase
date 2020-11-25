@@ -171,7 +171,7 @@ all'interno del contenuto.
 \multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{5}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voti}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Da mymovies si evince che ci sono circa \\ 200.00 recensioni totali, si considera un voto per recensione \\ più un voto per utente che non lascia il commento\end{tabular}}                                                     \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
-\multicolumn{1}{|l|}{\textbf{Contenuti}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies\tablefootnote{Articolo mymovies: \url{www.mymovies.com}}}                                                                                                                                                                                                              \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuti}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies}                                                                                                                                                                                                              \\ \hline
 \multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{20}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
 \multicolumn{1}{|l|}{\textbf{Programma}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{Film}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10.000}  & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
@@ -380,3 +380,180 @@ all'interno della serie.
 * L'attributo ruolo dell'associazione partecipazione P può assumere i valori regista o attore. Nel primo caso l'attributo
 personaggio interpretato avrà valore `NULL`, nel secondo invece avrà come valore il nome del personaggio interpretato dall'attore
 all'interno del programma.
+
+### Schema relazionale
+
+Utente (\underline{email}, Nome utente, Password, isRedattore, Data inizio collaborazione)
+
+
+Preferisce F (\underline{Email Utente, Titolo Film, Data uscita Film})
+
+ > Preferisce F.Email Utente references Utente.email
+
+ > Preferisce F.Titolo Film references Film.Titolo
+
+ > Preferisce F.Data uscita Film references Film.Data uscita
+
+
+Preferisce S (\underline{Email Utente, Titolo Serie, Data uscita Serie})
+
+ > Preferisce S.Email Utente references Utente.email
+
+ > Preferisce S.Titolo Serie references serie.Titolo
+
+ > Preferisce F.Data uscita Serie references Serie.Data uscita
+
+
+Preferisce P (\underline{Email Utente, Titolo Programma, Data uscita Programma})
+
+ > Preferisce P.Email utente references Utente.email
+
+ > Preferisce P.Titolo programma references Programma.Titolo
+
+ > Preferisce F.Data uscita Programma references Programma.Data uscita
+
+
+Assegna (\underline{Email Utente, ID Voto})
+ 
+ > Assegna.Email Utente references Utente.email
+ 
+ > Assegna.ID Voto references Voto.ID
+
+
+Voto (\underline{ID}, Numero stelle)
+
+
+Riferisce F (\underline{ID voto, Titolo film, Data uscita Film})
+
+ > Riferisce.ID Voto references Voto.ID
+
+ > Riferisce F.Titolo Film references Film.Titolo
+
+ > Riferisce F.Data uscita Film references Film.Data uscita
+
+
+Riferisce S (\underline{ID voto, Titolo serie, Data uscita serie})
+
+ > Riferisce.ID Voto references Voto.ID
+
+ > Riferisce F.Titolo Serie references Serie.Titolo
+
+ > Riferisce F.Data uscita Serie references Serie.Data uscita
+
+
+Riferisce P (\underline{ID voto, Titolo programma, Data uscita programma})
+
+ > Riferisce.ID Voto references Voto.ID
+
+ > Riferisce F.Titolo Programma references Programma.Titolo
+
+ > Riferisce F.Data uscita Programma references Programma.Data uscita
+
+
+Distribuzione (\underline{Nome Piattaforma, Numero Stagione, Titolo Serie, Data uscita Serie})
+
+ > Distribuzione.Nome Piattaforma references Piattaforma.Nome
+
+ > Distribuzione.Numero Stagione references Stagione.Numero
+
+ > Distribuzione.Titolo Serie references Stagione.Titolo Serie
+
+ > Distribuzione.Data uscita Stagione references Stagione.Data uscita Serie
+
+
+Film (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio)
+
+
+Serie (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio)
+
+
+Programma (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio, Canale)
+
+
+Proiezione (\underline{Titolo Film, Data uscita Film, Nome Cinema, Indirizzo Cinema, Provincia Cinema, Regione Cinema}, Prezzo, Ora, Data, Sala)
+
+ > Proiezione.Titolo Film references Film.Titolo
+
+ > Proiezione.Data uscita Film references Film.Data uscita
+
+ > Proiezione.Nome Cinema references Cinema.Nome
+
+ > Proiezione.Indirizzo Cinema references Cinema.Indirizzo
+
+ > Proiezione.Provincia Cinema references Cinema.Provincia
+
+ > Proiezione.Regione Cinema references Cinema.Regione
+
+
+Cinema (\underline{Nome, Indirizzo, Provincia, Regione}, Contatti)
+
+
+Artista (\underline{Nome, Cognome, Data di nascita}, Luogo di nascita, Biografia testuale, Ultimi contenuti)
+
+
+Partecipazione F (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Film, Data uscita Film}, Ruolo, Personaggio interpretato)
+
+ > Partecipazione F.Nome Artista references Artista.Nome
+
+ > Partecipazione F.Cognome Artista references Artista.Cognome
+
+ > Partecipazione F.Data di nascita Artista references Artista.Data di nascita
+
+ > Partecipazione F.Titolo Film references Film.Titolo
+
+ > Partecipazione F.Data uscita Film references Film.Data uscita
+
+
+Partecipazione S (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Serie, Data uscita Serie}, Ruolo, Personaggio interpretato)
+
+ > Partecipazione S.Nome Artista references Artista.Nome
+
+ > Partecipazione S.Cognome Artista references Artista.Cognome
+
+ > Partecipazione S.Data di nascita Artista references Artista.Data di nascita
+
+ > Partecipazione S.Titolo Serie references Serie.Titolo
+
+ > Partecipazione S.Data uscita Serie references Serie.Data uscita
+ 
+
+Partecipazione P (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Programma, Data uscita Programma}, Ruolo, Personaggio interpretato)
+
+ > Partecipazione P.Nome Artista references Artista.Nome
+
+ > Partecipazione P.Cognome Artista references Artista.Cognome
+
+ > Partecipazione P.Data di nascita Artista references Artista.Data di nascita
+
+ > Partecipazione P.Titolo Programma references Programma.Titolo
+
+ > Partecipazione P.Data uscita Programma references Programma.Data uscita
+ 
+
+Stagione (\underline{Numero,  Titolo Serie, Data uscita Serie})
+
+
+Divisa (\underline{Titolo Serie, Data uscita Serie, Numero Stagione})
+
+ > Divisa.Titolo Serie references Serie.Titolo
+
+ > Divisa.Data uscita Serie references Serie.Data uscita
+
+ > Divisa.Numero Serie references Stagione.Numero
+
+
+Contiene (\underline{Numero Serie,  Titolo Serie, Data uscita Serie, Titolo Episodio})
+
+ > Contiene.Numero Serie references Serie.Numero
+
+ > Contiene.Titolo Serie references Serie.Titolo
+
+ > Contiene.Data uscita Serie references Serie.Data uscita
+
+ > Contiene.Titolo Episodio references Episodio.Titolo
+
+
+Episodio (\underline{Titolo}, Durata, Cast episodio)
+
+
+Piattaforma (\underline{Nome})
