@@ -11,11 +11,13 @@ urlcolor: blue
 <!--
 TODO
 Controllare nomi nello schema ER e aggiornare il resto di conseguenza
+Discutere su voto contenuto -> riferisce / votazione contenuto (meglio)
+Coerenza generale con nomi e schemi
 FIX
-- identificatori nell'associazione proiezione
 - top pagina 9 ex esame
 NOTE
 in troupe -> sceneggiatura fotografia musiche
+indirizzo -> via + città
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
 for code styling check (anche no, bene il default):
 https://learnbyexample.github.io/customizing-pandoc/
@@ -89,7 +91,7 @@ dal visitatore rimangono in memoria.
 \multicolumn{1}{|l|}{\textbf{Attore}}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Colui che recita in un contenuto\\ interpretando un ruolo\end{tabular}}                             & \multicolumn{1}{l|}{Persona}                                                                  & \multicolumn{1}{l|}{Contenuto}                                                                 \\ \hline
 \multicolumn{1}{|l|}{\textbf{Regista}}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Colui che si occupa della regia\\ dei contenuti\end{tabular}}                                       & \multicolumn{1}{l|}{Regia, persona}                                                           & \multicolumn{1}{l|}{Contenuto}                                                                 \\ \hline
 \multicolumn{1}{|l|}{\textbf{Cinema}}      & \multicolumn{1}{l|}{Luogo in cui è proiettato un film}                                                                                             & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Film}                                                                      \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto}}        & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Voto numerico (da 1 a 5 stelline) \\ espresso da un utente del sito\end{tabular}}                   & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Contenuto, utente}                                                         \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto}}        & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Voto numerico (da 1 a 5 stelle) \\ espresso da un utente del sito\end{tabular}}                   & \multicolumn{1}{l|}{}                                                                         & \multicolumn{1}{l|}{Contenuto, utente}                                                         \\ \hline
 \end{tabular}%
 \end{adjustwidth}
 \end{table}
@@ -139,12 +141,12 @@ a cui ha partecipato.
 
 ### Scherma E-R
 
-![](./merge/14-11-2020.png)
+![](./merge/25-11-2020.jpg)
 
 ### Business rules
 
 * Quando un utente viene cancellato i voti espressi rimangono, dati personali e preferiti vengono rimossi.
-* Il valore del voto è compreso tra 1 e 5 stelline.
+* Il valore del voto è compreso tra 1 e 5 stelle.
 * L'attributo voto medio di un contenuto indica la media dei voti assegnati dagli utenti.
 * Per il singolo artista viene mantenuta una lista dei contenuti a cui ha partecipato.
 * I redattori aggiornano le informazioni relative ai contenuti. (? e degli artisti)
@@ -222,13 +224,13 @@ a cui ha partecipato.
 ### Analisi delle ridondanze
 
 1. Attributo "età" di "artista" (attributo derivabile): l'attributo "età" è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato ("età") secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
-2. Attributo "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto" facente riferimento ad un dato "contenuto". In questa somma, se si tiene anche conto del valore dei punteggi, si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
+2. Attributo "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto" facente riferimento ad un dato "contenuto". In questa somma, se si tiene anche conto del valore dei punteggi (il numero di stelle), si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
 
 Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
 
 \begin{figure}
     \centering 
-    \includegraphics[width=200pt]{./merge/snippetRidondanza.png}
+    \includegraphics[width=200pt]{./merge/snippetRidondanza.jpg}
 \end{figure}
 
 <!-- ![](./merge/snippetRidondanza.png){ width=50% } --> 
