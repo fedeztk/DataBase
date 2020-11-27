@@ -10,11 +10,9 @@ urlcolor: blue
 
 <!--
 TODO
-Controllare nomi nello schema ER e aggiornare il resto di conseguenza
-Discutere su voto contenuto -> riferisce / votazione contenuto (meglio)
-Coerenza generale con nomi e schemi
+Spiegare la scelta di alcuni attributi principali (sicuro stagione)
+( Coerenza generale con nomi e schemi )
 FIX
-- top pagina 9 ex esame
 NOTE
 in troupe -> sceneggiatura fotografia musiche
 indirizzo -> via + città
@@ -323,14 +321,14 @@ essendo anche l'operazione 2 la più frequente sulla base di dati.
 
 ### Eliminazione delle generalizzazioni
 
-1. Utente - Iscritto, Redattore (*generalizzazione totale ed esclusiva*)
+**1. Utente - Iscritto, Redattore** (*generalizzazione totale ed esclusiva*)
 
 ![](./merge/gen1.jpg)
 
 Motivazione: si è scelto di accorpare le entità figlie della generalizzazione nell'entità padre, semplificando così la base di dati.
 Si è aggiunto a tale scopo un flag $isRedattore$ per indicare se l'utente è un iscritto o un redattore.
 
-2. Artista - Attore, Regista (*generalizzazione totale ed esclusiva*)
+**2. Artista - Attore, Regista** (*generalizzazione totale ed esclusiva*)
 
 ![](./merge/gen2.jpg)
 
@@ -339,7 +337,7 @@ in un giorno, la visualizzazione di un contenuto (che richiede l'accesso ad entr
 Per questo accorpamento non è stato necessaria l'aggiunta di attributi, in quanto la differenza tra attore e regista viene già espressa
 dall'attributo ruolo della associazione partecipazione.
 
-3. Contenuto - Programma, Film, Serie (*generalizzazione totale ed esclusiva*)
+**3. Contenuto - Programma, Film, Serie** (*generalizzazione totale ed esclusiva*)
 
 ![](./merge/gen3.jpg)
 
@@ -383,8 +381,11 @@ all'interno del programma.
 
 ### Schema relazionale
 
+\
+
 Utente (\underline{email}, Nome utente, Password, isRedattore, Data inizio collaborazione)
 
+\
 
 Preferisce F (\underline{Email Utente, Titolo Film, Data uscita Film})
 
@@ -394,6 +395,7 @@ Preferisce F (\underline{Email Utente, Titolo Film, Data uscita Film})
 
  > Preferisce F.Data uscita Film references Film.Data uscita
 
+\
 
 Preferisce S (\underline{Email Utente, Titolo Serie, Data uscita Serie})
 
@@ -403,6 +405,7 @@ Preferisce S (\underline{Email Utente, Titolo Serie, Data uscita Serie})
 
  > Preferisce F.Data uscita Serie references Serie.Data uscita
 
+\
 
 Preferisce P (\underline{Email Utente, Titolo Programma, Data uscita Programma})
 
@@ -412,6 +415,7 @@ Preferisce P (\underline{Email Utente, Titolo Programma, Data uscita Programma})
 
  > Preferisce F.Data uscita Programma references Programma.Data uscita
 
+\
 
 Assegna (\underline{Email Utente, ID Voto})
  
@@ -419,9 +423,11 @@ Assegna (\underline{Email Utente, ID Voto})
  
  > Assegna.ID Voto references Voto.ID
 
+\
 
 Voto (\underline{ID}, Numero stelle)
 
+\
 
 Riferisce F (\underline{ID voto, Titolo film, Data uscita Film})
 
@@ -431,6 +437,7 @@ Riferisce F (\underline{ID voto, Titolo film, Data uscita Film})
 
  > Riferisce F.Data uscita Film references Film.Data uscita
 
+\
 
 Riferisce S (\underline{ID voto, Titolo serie, Data uscita serie})
 
@@ -440,6 +447,7 @@ Riferisce S (\underline{ID voto, Titolo serie, Data uscita serie})
 
  > Riferisce F.Data uscita Serie references Serie.Data uscita
 
+\
 
 Riferisce P (\underline{ID voto, Titolo programma, Data uscita programma})
 
@@ -449,6 +457,7 @@ Riferisce P (\underline{ID voto, Titolo programma, Data uscita programma})
 
  > Riferisce F.Data uscita Programma references Programma.Data uscita
 
+\
 
 Distribuzione (\underline{Nome Piattaforma, Numero Stagione, Titolo Serie, Data uscita Serie})
 
@@ -460,17 +469,29 @@ Distribuzione (\underline{Nome Piattaforma, Numero Stagione, Titolo Serie, Data 
 
  > Distribuzione.Data uscita Stagione references Stagione.Data uscita Serie
 
+\
 
-Film (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio)
+Film (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione,
 
+ > Descrizione testuale, Voto medio)
 
-Serie (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio)
+\
 
+Serie (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione,
 
-Programma (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione testuale, Voto medio, Canale)
+ > Descrizione testuale, Voto medio)
 
+\
 
-Proiezione (\underline{Titolo Film, Data uscita Film, Nome Cinema, Indirizzo Cinema, Provincia Cinema, Regione Cinema}, Prezzo, Ora, Data, Sala)
+Programma (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, Troupe, 
+
+ > > > Distribuzione, Descrizione testuale, Voto medio, Canale)
+
+\
+
+Proiezione (\underline{Titolo Film, Data uscita Film, Nome Cinema, Indirizzo Cinema, Provincia Cinema,}
+
+ > > \underline{Regione Cinema}, Prezzo, Ora, Data, Sala})
 
  > Proiezione.Titolo Film references Film.Titolo
 
@@ -484,14 +505,21 @@ Proiezione (\underline{Titolo Film, Data uscita Film, Nome Cinema, Indirizzo Cin
 
  > Proiezione.Regione Cinema references Cinema.Regione
 
+\
 
 Cinema (\underline{Nome, Indirizzo, Provincia, Regione}, Contatti)
 
+\
 
-Artista (\underline{Nome, Cognome, Data di nascita}, Luogo di nascita, Biografia testuale, Ultimi contenuti)
+Artista (\underline{Nome, Cognome, Data di nascita}, Luogo di nascita, Biografia testuale,
 
+ > > Ultimi contenuti)
 
-Partecipazione F (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Film, Data uscita Film}, Ruolo, Personaggio interpretato)
+\
+
+Partecipazione F (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Film,}
+
+  > > > > \underline{Data uscita Film}, Ruolo, Personaggio interpretato)
 
  > Partecipazione F.Nome Artista references Artista.Nome
 
@@ -503,8 +531,12 @@ Partecipazione F (\underline{Nome Artista, Cognome Artista, Data di nascita Arti
 
  > Partecipazione F.Data uscita Film references Film.Data uscita
 
+\
 
-Partecipazione S (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Serie, Data uscita Serie}, Ruolo, Personaggio interpretato)
+Partecipazione S (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Serie,}
+
+
+ > > > > \underline{Data uscita Serie},Ruolo, Personaggio interpretato)
 
  > Partecipazione S.Nome Artista references Artista.Nome
 
@@ -516,8 +548,11 @@ Partecipazione S (\underline{Nome Artista, Cognome Artista, Data di nascita Arti
 
  > Partecipazione S.Data uscita Serie references Serie.Data uscita
  
+\
 
-Partecipazione P (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Programma, Data uscita Programma}, Ruolo, Personaggio interpretato)
+Partecipazione P (\underline{Nome Artista, Cognome Artista, Data di nascita Artista, Titolo Programma,}
+
+ > > > > \underline{Data uscita Programma}, Ruolo, Personaggio interpretato)
 
  > Partecipazione P.Nome Artista references Artista.Nome
 
@@ -529,9 +564,11 @@ Partecipazione P (\underline{Nome Artista, Cognome Artista, Data di nascita Arti
 
  > Partecipazione P.Data uscita Programma references Programma.Data uscita
  
+\
 
 Stagione (\underline{Numero,  Titolo Serie, Data uscita Serie})
 
+\
 
 Divisa (\underline{Titolo Serie, Data uscita Serie, Numero Stagione})
 
@@ -541,6 +578,7 @@ Divisa (\underline{Titolo Serie, Data uscita Serie, Numero Stagione})
 
  > Divisa.Numero Serie references Stagione.Numero
 
+\
 
 Contiene (\underline{Numero Serie,  Titolo Serie, Data uscita Serie, Titolo Episodio})
 
@@ -552,8 +590,10 @@ Contiene (\underline{Numero Serie,  Titolo Serie, Data uscita Serie, Titolo Epis
 
  > Contiene.Titolo Episodio references Episodio.Titolo
 
+\
 
 Episodio (\underline{Titolo}, Durata, Cast episodio)
 
+\
 
 Piattaforma (\underline{Nome})
