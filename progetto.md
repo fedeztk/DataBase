@@ -10,7 +10,7 @@ urlcolor: blue
 
 <!--
 TODO
-Spiegare la scelta di alcuni attributi principali (sicuro stagione)
+Coerenza formattazione `` vs "" vs niente
 ( Coerenza generale con nomi e schemi )
 FIX
 NOTE
@@ -350,7 +350,9 @@ descritte nella tavola delle operazioni.
 
 ### Scelta degli identificatori principali
 
-La descrizione degli identificatori principali non è stata trattata in quanto si ritiene sufficientemente auto-esplicativa a partire
+L'attributo `ID` di Voto ha lo scopo di mantenere i voti degli utenti eventualmente rimossi dalla base di dati (necessari per il calcolo
+del voto medio di film, serie e programmi). Nonostante fosse già presente nello [schema E-R iniziale](### Schema E-R) si è pensato di spiegarlo per maggiore chiarezza. \
+La descrizione degli altri identificatori principali non è stata trattata in quanto si ritiene sufficientemente auto-esplicativa a partire
 dallo schema E-R + business-rules.
 
 ### Schema E-R ristrutturato + business rules
@@ -383,13 +385,13 @@ all'interno del programma.
 
 \
 
-Utente (\underline{email}, Nome utente, Password, isRedattore, Data inizio collaborazione)
+Utente (\underline{Email}, Nome utente, Password, isRedattore, Data inizio collaborazione)
 
 \
 
 Preferisce F (\underline{Email Utente, Titolo Film, Data uscita Film})
 
- > Preferisce F.Email Utente references Utente.email
+ > Preferisce F.Email Utente references Utente.Email
 
  > Preferisce F.Titolo Film references Film.Titolo
 
@@ -399,33 +401,27 @@ Preferisce F (\underline{Email Utente, Titolo Film, Data uscita Film})
 
 Preferisce S (\underline{Email Utente, Titolo Serie, Data uscita Serie})
 
- > Preferisce S.Email Utente references Utente.email
+ > Preferisce S.Email Utente references Utente.Email
 
- > Preferisce S.Titolo Serie references serie.Titolo
+ > Preferisce S.Titolo Serie references Serie.Titolo
 
- > Preferisce F.Data uscita Serie references Serie.Data uscita
+ > Preferisce S.Data uscita Serie references Serie.Data uscita
 
 \
 
 Preferisce P (\underline{Email Utente, Titolo Programma, Data uscita Programma})
 
- > Preferisce P.Email utente references Utente.email
+ > Preferisce P.Email utente references Utente.Email
 
  > Preferisce P.Titolo programma references Programma.Titolo
 
- > Preferisce F.Data uscita Programma references Programma.Data uscita
+ > Preferisce P.Data uscita Programma references Programma.Data uscita
 
 \
 
-Assegna (\underline{Email Utente, ID Voto})
- 
- > Assegna.Email Utente references Utente.email
- 
- > Assegna.ID Voto references Voto.ID
+Voto (\underline{ID}, Numero stelle,  Email Utente)
 
-\
-
-Voto (\underline{ID}, Numero stelle)
+ > Voto.Email Utente references Utente.Email
 
 \
 
@@ -597,3 +593,9 @@ Episodio (\underline{Titolo}, Durata, Cast episodio)
 \
 
 Piattaforma (\underline{Nome})
+
+\newpage
+
+# Implementazione
+
+## DDL di creazione del database
