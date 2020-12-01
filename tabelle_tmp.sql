@@ -35,6 +35,14 @@ create table SERIE(
     constraint SERIE_P_KEY primary key (Titolo, Data_uscita)
 );
 
+create table STAGIONE(
+    Numero int not null,
+    Titolo_Serie varchar(128) not null,
+    Data_uscita_Serie  date not null,
+   constraint STAGIONE_P_KEY primary key (Numero, Titolo_Serie, Data_uscita_Serie),
+   constraint STAGIONE_F_KEY_SERIE foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita)
+);
+
 create table PROGRAMMA(
     Titolo varchar(64) not null,
     Data_uscita date not null,
@@ -194,7 +202,7 @@ create table PARTECIPAZIONE_P(
  Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome,
  Data_di_nascita),
     constraint PARTECIPAZIONE_F_F_KEY_PROGRAMMA foreign key (Titolo_Programma,
- Data_uscita_Programma) references PROGRAMMA(Titolo, Data_di_uscita) 
+ Data_uscita_Programma) references PROGRAMMA(Titolo, Data_uscita) 
 );
 
 create table DISTRIBUZIONE(
@@ -207,16 +215,8 @@ Titolo_Serie, Data_uscita_Serie),
     constraint DISTRIBUZIONE_F_KEY_PIATTAFORMA foreign key(Nome_Piattaforma) 
 references PIATTAFORMA(Nome),
     constraint DISTRIBUZIONE_F_KEY_STAGIONE foreign key(Numero_Stagione, 
-Titolo_Serie, Data_uscita_Serie) references STAGIONE(Numero, Titolo,
+Titolo_Serie, Data_uscita_Serie) references STAGIONE(Numero, Titolo_Serie,
 Data_uscita_Serie)
-);
-
-create table STAGIONE(
-    Numero int not null,
-    Titolo_Serie varchar(128) not null,
-    Data_uscita_Serie  date not null,
-   constraint STAGIONE_P_KEY primary key (Numero, Titolo_Serie, Data_uscita_Serie),
-   constraint STAGIONE_F_KEY_SERIE foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita)
 );
 
 create table DIVISA(
@@ -225,5 +225,5 @@ create table DIVISA(
     Numero_Stagione int not null,
     constraint DIVISA_P_KEY primary key (Titolo_Serie, Data_uscita_Serie, Numero_Stagione),
     constraint DIVISA_F_KEY_SERIE foreign key(Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita),
-    constraint DIVISA_F_KEY_STAGIONE foreign key (Numero_Stagione) references STAGIONE(Numero)
+    constraint DIVISA_F_KEY_STAGIONE foreign key (Numero_Stagione, Titolo_Serie, Data_uscita_Serie) references STAGIONE(Numero, Titolo_Serie, Data_uscita_Serie)
 );
