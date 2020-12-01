@@ -564,6 +564,10 @@ Partecipazione P (\underline{Nome Artista, Cognome Artista, Data di nascita Arti
 
 Stagione (\underline{Numero,  Titolo Serie, Data uscita Serie})
 
+ > Stagione.Titolo uscita Serie references Stagione.Titolo Serie
+
+ > Stagione.Data uscita Serie references Stagione.Data uscita
+
 \
 
 Divisa (\underline{Titolo Serie, Data uscita Serie, Numero Stagione})
@@ -576,15 +580,15 @@ Divisa (\underline{Titolo Serie, Data uscita Serie, Numero Stagione})
 
 \
 
-Contiene (\underline{Numero Serie,  Titolo Serie, Data uscita Serie, Titolo Episodio})
+Contiene (\underline{Numero Stagione,  Titolo Serie, Data uscita Serie, Titolo Episodio})
 
- > Contiene.Numero Serie references Serie.Numero
+ > Contiene.Numero Stagione references Stagione.Numero
 
- > Contiene.Titolo Serie references Serie.Titolo
+ > Contiene.Titolo Serie references Stagione.Titolo Serie
 
- > Contiene.Data uscita Serie references Serie.Data uscita
+ > Contiene.Data uscita Serie references Stagione.Data uscita Serie
 
- > Contiene.Titolo Episodio references Episodio.Titolo
+ > Contiene.Titolo Episodio references Stagione.Titolo
 
 \
 
@@ -599,3 +603,6 @@ Piattaforma (\underline{Nome})
 # Implementazione
 
 ## DDL di creazione del database
+
+```SQL
+```
