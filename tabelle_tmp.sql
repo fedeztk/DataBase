@@ -254,7 +254,7 @@ create table PROIEZIONE(
 
 INSERT INTO UTENTE (Email,Nome_utente,PasswordU,isRedattore,Data_inizio_collaborazione)
 VALUES 
-('volutpat.Nulla.dignissim@inceptos.com','Galvin Valenzuela','DIcVn7997KIV',true,'2020-27-08'),
+('volutpat.Nulla.dignissim@inceptos.com','Galvin Valenzuela','DIcVn7997KIV',true,'2020-08-27'),
 ('nec.cursus@Phasellus.org','Remedios Ward','MIKKz9C55HIx',false,'2010-08-27'),
 ('ligula.consectetuer@Morbi.co.uk','Amery Parks','BIaGr8269ZIJ',false,'2011-06-21'),
 ('ut.aliquam.iaculis@Sed.com','Kelly Cox','TIeGp8A37FIM',false,'2020-01-29'),
@@ -287,7 +287,7 @@ VALUES
 insert into PROGRAMMA (Titolo, Data_uscita, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione_testuale, Voto_medio, Canale)
 values 
 ('Blob','1989-01-12' ,'20', 'Satirico', 'Rai', 'Italia', 'Enrico Ghezzi, Marco Giusti, Angelo Guglielmi', 'Rai', 'Ogni puntata - la cui durata può variare dai dieci ai trenta minuti - è un attento montaggio, un riutilizzo creativo di spezzoni video presi dai canali televisivi italiani ed esteri, filmati amatoriali e web, uniti in modo da mettere a nudo la tv e i suoi protagonisti', 0, 'Rai3'),
-('Antonino Chef Academy', ' 2019-10-03', '90', ' Enogastronomico', 'Sky', 'Italia', 'Antonino Cannavacciuolo', 'Antonino Chef Academy è un programma culinario condotto dallo chef partenopeo Cannavacciuolo. Nella location del Castello Dal Pozzo di Oleggio, il cuoco pluripremiato deve vestire i panni di professore, per guidare dieci giovani aspiranti cuochi (tra i 18 e i 23 anni) che, a seguito di un percorso formativo, si sfidano in delle prove in cui devono mettere a frutto tutte le loro conoscenze ai fornelli.', 0, 'Sky Uno'),
+('Antonino Chef Academy', ' 2019-10-03', '90', 'Sky', ' Enogastronomico', 'Sky', 'Italia', 'Antonino Cannavacciuolo', 'Antonino Chef Academy è un programma culinario condotto dallo chef partenopeo Cannavacciuolo. Nella location del Castello Dal Pozzo di Oleggio, il cuoco pluripremiato deve vestire i panni di professore, per guidare dieci giovani aspiranti cuochi (tra i 18 e i 23 anni) che, a seguito di un percorso formativo, si sfidano in delle prove in cui devono mettere a frutto tutte le loro conoscenze ai fornelli.', 0, 'Sky Uno'),
 ('Fratelli Crozza', '2017-02-12', '70', 'Show', 'Andrea Zalone', 'Italia', '', 'Rai', 'Nel corso di ogni puntata viene analizzata l’attualità politica e sociale italiana attraverso la satira, i monologhi e i personaggi - reali o di fantasia - impersonati dall''imitatore.', 0, 'Nove'),
 ('Alessandro Borghese - 4 ristoranti', '2015-12-10', '60', 'Talent Show', 'Sky', 'Italia', 'Alessandro Borghese', 'Sky, Rai', 'In ogni puntata si sfidano quattro ristoratori di una stessa area geografica in Italia, per stabilire chi è il migliore in una categoria, scelta di volta in volta dal conduttore in base agli elementi tipici o le particolarità della ristorazione del territorio in cui si trova.', '0', 'TV8'),
 ('Forum', '1985-01-02', '120', 'Show', 'Mediaset', 'Italia', 'Catherine Spaak, Paola Perego, Rita dalla Chiesa, Barbara Palombelli', 'Mediaset', 'Due persone in contrasto su un argomento - problemi familiari, incidenti stradali, liti di condominio e via dicendo - si affidano alla sentenza di un giudice. Le questioni affrontate sono ricostruzioni di fatti, interpretate da due attori: il giudizio finale non è quindi da ritenersi ufficiale.', 0, 'Canale5');
@@ -310,7 +310,7 @@ insert into EPISODIO values('Crazy Handful of Nothin', 55, ' Max Arciniega, John
 insert into EPISODIO values('Gray Matter', 45, 'Roberta Marquez, Allan Pacheco ');
 insert into EPISODIO values('"Exchanges"', 30,'Anya Taylor-Joy');
 
-insert into FILM values('Matrix','1999-04-02', 133, 'Fantascienza', 'Lana Wachowski, Lilly Wachowski', 'USA', 'Con Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, Gloria Foster', 'Warner Bros','Un mondo che sembra reale ed è invece solo un paravento per nascondere la realtà vera. Seguendo un tatuaggio sulla spalla di una ragazza l''hacker Neo scopre che la cosiddetta realtà è solo un impulso elettrico fornito al cervello degli umani da un''intelligenza artificiale.', 0)
+insert into FILM values('Matrix','1999-04-02', 133, 'Fantascienza', 'Lana Wachowski, Lilly Wachowski', 'USA', 'Con Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss, Hugo Weaving, Gloria Foster', 'Warner Bros','Un mondo che sembra reale ed è invece solo un paravento per nascondere la realtà vera. Seguendo un tatuaggio sulla spalla di una ragazza l''hacker Neo scopre che la cosiddetta realtà è solo un impulso elettrico fornito al cervello degli umani da un''intelligenza artificiale.', 0);
 insert into FILM values ('Teenage Mutant Ninja Turtles', '2014-05-20', 101, 'Azione', 'Paramount Pictures', 'USA', 'Aleksandr Lokensgard, Frazer Newton, John A. Canavan', 'Universal Pictures', 'La pellicola è il remake del film Tartarughe Ninja alla riscossa del 1990 e segna il riavvio della serie cinematografica, proseguita nel 2016 con Tartarughe Ninja - Fuori dall''ombra.', 0);
 insert into FILM values ('Il cosmo sul como', '2008-07-15', 94, 'Commedia', 'Medusa Film', 'Italia', 'Agostino Castiglioni Danilo Torchia Paolo Silvestri', 'Medusa Film', 'La storia si articola in quattro episodi, a cui fa da cornice la storia del Maestro Tsu''Nam.', 0);
 insert into FILM values ('Ghost Rider - Spirito di vendetta', '2012-03-23', 95, 'Azione', 'Medusa Film',  'USA', ' Scott M. Gimple, David S. Goyer, Seth Hoffman', 'Johnny Driverha deciso di allontanarsi per imparare a controllare i suoi nuovi poteri.', 0);
@@ -324,7 +324,7 @@ VALUES
 INSERT INTO Preferisce_S (Email_Utente,Titolo_Serie,Data_uscita_Serie)
 VALUES 
 ('ligula.consectetuer@Morbi.co.uk','The Mandalorian', '2019-07-05'),
-('ut.aliquam.iaculis@Sed.com','Breaking Bad', '2008-02-28',);
+('ut.aliquam.iaculis@Sed.com','Breaking Bad', '2008-02-28');
 
 INSERT INTO Preferisce_P (Email_Utente,Titolo_Programma,Data_uscita_Programma)
 VALUES 
@@ -332,16 +332,16 @@ VALUES
 
 INSERT INTO Riferisce_F (Id_Voto,Titolo_Film,Data_uscita_Film)
 VALUES
-('volutpat.Nulla.dignissim@inceptos.com','Il gigante di ferro', '1999-08-14');
+(1,'Il gigante di ferro', '1999-08-14');
 
 INSERT INTO Riferisce_S (Id_Voto,Titolo_Serie,Data_uscita_Serie)
 VALUES
-('ligula.consectetuer@Morbi.co.uk','Il trono di spade', '2011-11-03'),
-('ut.aliquam.iaculis@Sed.com','I Medici','2016-03-07');
+(2,'Il trono di spade', '2011-11-03'),
+(3,'I Medici','2016-03-07');
 
 INSERT INTO Riferisce_P (Id_Voto,Titolo_Programma,Data_uscita_Programma)
 VALUES
-('ut.aliquam.iaculis@Sed.com','Alessandro Borghese - 4 ristoranti', '2015-12-10');
+(4,'Alessandro Borghese - 4 ristoranti', '2015-12-10');
 
 INSERT INTO Distribuzione (Nome_Piattaforma, Numero_Stagione, Titolo_Serie, Data_uscita_Serie)
 VALUES
@@ -349,14 +349,12 @@ VALUES
 ('AmazonPrimeVideo', 2, 'Breaking Bad', '2008-02-28'),
 ('Infinity', 1, 'Breaking Bad', '2008-02-28'),
 ('Infinity', 3, 'Il trono di spade', '2011-11-03');
-('Infinity', 3, 'Il trono di spade', '2011-11-03');
 
 INSERT INTO Divisa (Titolo_Serie, Data_uscita_Serie, Numero_Stagione)
 VALUES
 ('The Queen''s Gambit', '2020-02-04', 1),
 ('Breaking Bad', '2008-02-28', 2),
 ('Breaking Bad', '2008-02-28', 1),
-('Il trono di spade', '2011-11-03', 3),
 ('Il trono di spade', '2011-11-03', 3);
 
 insert into ARTISTA (Nome, Cognome, Data_di_nascita, Luogo_di_nascita, Biografia_testuale, Ultimi_contenuti)
@@ -374,7 +372,7 @@ insert into ARTISTA values
 insert into PARTECIPAZIONE_F (Nome_Artista, Cognome_Artista, Data_di_nascita_Artista, Titolo_Film, Data_uscita_Film, Ruolo, Personaggio_interpretato)
 values
 ('Anya Josephine Marie', 'Taylor-Joy','1996-04-16', 'Matrix','1999-04-02', 'Regista', null),
-('Mara','Herring','1940-05-13', 'Ghost Rider - Spirito di vendetta', 'Attore', 'Sedia');
+('Mara','Herring','1940-05-13', 'Ghost Rider - Spirito di vendetta', '2012-03-23', 'Attore', 'Sedia');
 insert into PARTECIPAZIONE_S (Nome_Artista, Cognome_Artista, Data_di_nascita_Artista, Titolo_Serie, Data_uscita_Serie, Ruolo, Personaggio_interpretato)
 values
 ('Amethyst','Bentley','1989-09-07', 'Breaking Bad', '2008-02-28', 'Attore', 'Walter Jr');
@@ -390,10 +388,10 @@ insert into CONTIENE values (2,  'Breaking Bad',  '2008-02-28', 'Gray Matter');
 insert into CONTIENE values (3, 'Il trono di spade', '2011-11-03', 'Valar Dohaeris');
 insert into CONTIENE values (1,  'Il trono di spade', '2011-11-03', 'The Climb');
 
-insert into Proiezione (Titolo_Film,Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema, Prezzo, Ora, Data, Sala)
+insert into Proiezione (Titolo_Film,Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema, Prezzo, Ora, Data_C, Sala)
 values
 ('Matrix','1999-04-02','Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 5, '16:30', '2020-11-10', 1),
-('Teenage Mutant Ninja Turtles','Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 5, '16:45', '2020-09-10', 2),
+('Teenage Mutant Ninja Turtles','2014-05-20','Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 5, '16:45', '2020-09-10', 2),
 ('Il cosmo sul como', '2008-07-15', 'Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 7, '12:30', '2020-12-06', 1),
 ('Il cosmo sul como', '2008-07-15', 'Cinema Lumière', 'Via Azzo Gardino, 65, 40122 Bologna', 'BO', 'Emilia-Romagna', 8, '20:00', '2021-11-10', 6),
 ('Il gigante di ferro', '1999-08-14', 'La Casa del Cinema','Salizada San Stae, 1990, 30135 Venezia', 'VE', 'Veneto', 4.50, '18:30', '2020-04-03', 3);
