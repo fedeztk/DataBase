@@ -10,9 +10,12 @@ urlcolor: blue
 
 <!--
 TODO
-aggiustare codice
+controllare i check e i not null (forse troppo pochi?)
+controllare il voto medio
+aggiungere query che viola con cancellazione
+aggiustare codice (caps lock su tabelle + in generale)
 Coerenza formattazione `` vs "" vs niente
-Aggiustare/togliere il backling pagina 12
+Aggiustare/togliere il backlink pagina 12
 FIX
 NOTE
 in troupe -> sceneggiatura fotografia musiche
@@ -389,7 +392,6 @@ all'interno del programma.
 ### Schema relazionale
 
 \
-
 Utente (\underline{Email}, Nome utente, Password, isRedattore, Data inizio collaborazione)
 
 \
@@ -635,9 +637,7 @@ CREATE TABLE FILM(
 
 CREATE TABLE SERIE(
     Titolo varchar(64) NOT NULL,
-    Data_uscita date NOT NULL,
-    Durata int CHECK(Durata>0),
-    Genere varchar(128),
+    Data_uscita date NOT NULL, Durata int CHECK(Durata>0), Genere varchar(128),
     Produzione varchar(128),
     Paese varchar(128),
     Troupe varchar(1000),
@@ -863,13 +863,12 @@ CREATE TABLE PROIEZIONE(
   CONSTRAINT PROIEZIONE_F_K_FILM foreign key(Titolo_Film, Data_uscita_Film) references FILM(Titolo, Data_uscita) on delete cascade on update cascade,
   CONSTRAINT PROIEZIONE_F_K_CINEMA foreign key(Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema) references CINEMA(Nome, Indirizzo, Provincia, Regione) on delete cascade on update cascade
 );
-
 ```
 
 ## DML di popolamento di tutte le tabelle del database
 
 ```SQL
-INSERT INTO UTENTE (Email,Nome_utente,PasswordU,isRedattore,Data_inizio_collaborazione)
+INSERT INTO UTENTE (Email,Nome_utente,PasswordU,isRedattore, Data_inizio_collaborazione)
 VALUES 
 ('volutpat.nulla.dignissim@inceptos.com','Galvin Valenzuela','DIcVn7997KIV',true,'2020-08-27'),
 ('nec.cursus@Phasellus.org','Remedios Ward','MIKKz9C55HIx',false,'2010-08-27'),
@@ -1023,24 +1022,28 @@ VALUES
 ### Operazioni consentite dalla base di dati
 
 ```SQL
+-- utente
 UPDATE utente SET nome_utente='Galvin Venezuela' WHERE nome_utente='Galvin Valenzuela';
 DELETE from utente WHERE nome_utente = 'Galvin Venezuela';
 
+-- film
 UPDATE film SET titolo='Il Giggante de fero' WHERE titolo = 'Il gigante di ferro';
 DELETE from film WHERE titolo = 'Il Giggante de fero';
 
+-- piattaforma
 UPDATE piattaforma SET nome='La tv di casa mia' WHERE nome='Disney+';
 DELETE from piattaforma WHERE nome='La tv di casa mia';
 
+-- serie
 DELETE from serie WHERE titolo = 'Breaking Bad';
 UPDATE serie SET titolo='La serie con le spade' WHERE titolo = 'Il trono di spade';
 
-DELETE from serie WHERE titolo = 'Breaking Bad';
-UPDATE serie SET titolo='La serie con le spade' WHERE titolo = 'Il trono di spade';
-
+-- cinema/proiezione
 delete from cinema where nome='Cinema Lumière';
-
 update proiezione set nome_cinema='La Casa del Cinema',indirizzo_cinema='Salizada San Stae, 1990, 30135 Venezia', provincia_cinema='VE', regione_cinema='Veneto' where titolo_film='Matrix';
+
+-- artista
+update artista set Nome='Piero' where Luogo_di_nascita='Miami';
 ```
 
 ### Operazioni non consentite dalla base di dati (violazione vincolo di chiave esterna)

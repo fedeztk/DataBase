@@ -9,12 +9,17 @@
 \subsectionfont{\fontsize{15}{15}\selectfont}
 \subsubsectionfont{\fontsize{12}{12}\selectfont}
 \usepackage{listings}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
 \lstset{
     basicstyle=\ttfamily,
     numbers=left,
     numberstyle=\footnotesize,
     stepnumber=1,
     numbersep=8pt,
+    backgroundcolor=\color{black!10},
     showstringspaces=false,
     showtabs=false,
     tabsize=2,
@@ -22,5 +27,9 @@
     breaklines=true,
     breakatwhitespace=true,
     breakautoindent=true,
-    linewidth=\textwidth
+    linewidth=\textwidth,
+    keywordstyle=\color{javapurple}\bfseries,
+    stringstyle=\color{javared},
+    commentstyle=\color{javagreen},
+    morecomment=[s][\color{javadocblue}]{/**}{*/}
 }
