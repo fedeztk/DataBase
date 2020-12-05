@@ -11,11 +11,6 @@ urlcolor: blue
 <!--
 TODO
 controllare i check e i not null (forse troppo pochi?)
-controllare il voto medio
-aggiungere query che viola con cancellazione
-aggiustare codice (caps lock su tabelle + in generale)
-Coerenza formattazione `` vs "" vs niente
-Aggiustare/togliere il backlink pagina 12
 FIX
 NOTE
 in troupe -> sceneggiatura fotografia musiche
@@ -23,6 +18,26 @@ indirizzo -> via + città
 geometry: "left=3cm,right=3cm,top=2cm,bottom=2cm"
 for code styling check (anche no, bene il default):
 https://learnbyexample.github.io/customizing-pandoc/
+
+UTIL
+//seleziona il voto medio
+update film f1 set voto_medio =(
+  select avg(v.numero_stelle) from film f2
+  join riferisce_f r on f2.titolo = r.titolo_film 
+  join voto  v on v.id = r.id_voto
+  where f2.titolo=f1.titolo and f1.data_uscita=f2.data_uscita
+)
+where f1.titolo='Il gigante di ferro';
+
+//film preferiti da un utente x
+select * 
+from film f join preferisce_f p on f.titolo=p.titolo_film
+where p.email_utente='emailutente';
+
+//voti delle serie
+select * from serie s
+join riferisce_s r on s.titolo = r.titolo_serie
+join voto  v on v.id = r.id_voto
 -->
 
 \newpage
@@ -232,8 +247,8 @@ all'interno del contenuto.
 
 ### Analisi delle ridondanze
 
-1. Attributo "età" di "artista" (attributo derivabile): l'attributo "età" è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato ("età") secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
-2. Attributo "Voto medio" di "contenuto" (attributo derivabile da entità e conteggio): l'attributo "voto medio" è derivabile dal conteggio delle occorrenze dell'entità "voto" facente riferimento ad un dato "contenuto". In questa somma, se si tiene anche conto del valore dei punteggi (il numero di stelle), si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
+1. Attributo età di artista (attributo derivabile): l'attributo età è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato (età) secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
+2. Attributo Voto medio di contenuto (attributo derivabile da entità e conteggio): l'attributo voto medio è derivabile dal conteggio delle occorrenze dell'entità voto facente riferimento ad un dato contenuto. In questa somma, se si tiene anche conto del valore dei punteggi (il numero di stelle), si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
 
 Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
 
@@ -358,8 +373,8 @@ descritte nella tavola delle operazioni.
 
 ### Scelta degli identificatori principali
 
-L'attributo `ID` di Voto ha lo scopo di mantenere i voti degli utenti eventualmente rimossi dalla base di dati (necessari per il calcolo
-del voto medio di film, serie e programmi). Nonostante fosse già presente nello [schema E-R iniziale](### Schema E-R) si è pensato di spiegarlo per maggiore chiarezza. \
+L'attributo ID di Voto ha lo scopo di mantenere i voti degli utenti eventualmente rimossi dalla base di dati (necessari per il calcolo
+del voto medio di film, serie e programmi). Nonostante fosse già presente nello schema E-R iniziale si è pensato di spiegarlo per maggiore chiarezza. \
 La descrizione degli altri identificatori principali non è stata trattata in quanto si ritiene sufficientemente auto-esplicativa a partire
 dallo schema E-R + business-rules.
 
@@ -651,8 +666,8 @@ CREATE TABLE STAGIONE(
     Numero int NOT NULL,
     Titolo_Serie varchar(128) NOT NULL,
     Data_uscita_Serie  date NOT NULL,
-   CONSTRAINT STAGIONE_P_KEY primary key (Numero, Titolo_Serie, Data_uscita_Serie),
-   CONSTRAINT STAGIONE_F_KEY_SERIE foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita)on delete cascade on update cascade
+    CONSTRAINT STAGIONE_P_KEY primary key (Numero, Titolo_Serie, Data_uscita_Serie),
+    CONSTRAINT STAGIONE_F_KEY_SERIE foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita)on delete cascade on update cascade
 );
 
 CREATE TABLE PROGRAMMA(
@@ -755,7 +770,7 @@ CREATE TABLE EPISODIO(
     Titolo varchar(128) NOT NULL,
     Durata int,
     Cast_episodio varchar(1000),
-   CONSTRAINT EPISODIO_P_KEY  primary key (Titolo)
+    CONSTRAINT EPISODIO_P_KEY  primary key (Titolo)
 );
 
 CREATE TABLE PIATTAFORMA(
@@ -771,13 +786,9 @@ CREATE TABLE PARTECIPAZIONE_F(
     Data_uscita_Film date NOT NULL,
     Ruolo varchar(64),
     Personaggio_interpretato varchar(64),
-    CONSTRAINT PARTECIPAZIONE_F_P_KEY primary key( Nome_Artista, Cognome_Artista,
- Data_di_nascita_Artista, Titolo_Film, Data_uscita_Film),
-    CONSTRAINT PARTECIPAZIONE_F_F_KEY_ARTISTA foreign key (Nome_Artista,
- Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome,
- Data_di_nascita)on delete cascade on update cascade,
-    CONSTRAINT PARTECIPAZIONE_F_F_KEY_FILM foreign key (Titolo_Film,Data_uscita_Film) 
-references FILM(Titolo, Data_uscita) on delete cascade on update cascade
+    CONSTRAINT PARTECIPAZIONE_F_P_KEY primary key( Nome_Artista, Cognome_Artista, Data_di_nascita_Artista, Titolo_Film, Data_uscita_Film),
+    CONSTRAINT PARTECIPAZIONE_F_F_KEY_ARTISTA foreign key (Nome_Artista, Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome, Data_di_nascita)on delete cascade on update cascade,
+    CONSTRAINT PARTECIPAZIONE_F_F_KEY_FILM foreign key (Titolo_Film,Data_uscita_Film) references FILM(Titolo, Data_uscita) on delete cascade on update cascade
 );
 
 CREATE TABLE PARTECIPAZIONE_S(
@@ -788,13 +799,9 @@ CREATE TABLE PARTECIPAZIONE_S(
     Data_uscita_Serie date NOT NULL,
     Ruolo varchar(64),
     Personaggio_interpretato varchar(64),
-    CONSTRAINT PARTECIPAZIONE_S_P_KEY primary key( Nome_Artista, Cognome_Artista,
- Data_di_nascita_Artista, Titolo_Serie, Data_uscita_Serie),
-    CONSTRAINT PARTECIPAZIONE_F_F_KEY_ARTISTA foreign key (Nome_Artista,
- Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome,
- Data_di_nascita)on delete cascade on update cascade,
-    CONSTRAINT PARTECIPAZIONE_S_KEY_FILM foreign key (Titolo_Serie, Data_uscita_Serie) 
-references SERIE(Titolo, Data_uscita) on delete cascade on update cascade
+    CONSTRAINT PARTECIPAZIONE_S_P_KEY primary key( Nome_Artista, Cognome_Artista, Data_di_nascita_Artista, Titolo_Serie, Data_uscita_Serie),
+    CONSTRAINT PARTECIPAZIONE_F_F_KEY_ARTISTA foreign key (Nome_Artista, Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome, Data_di_nascita)on delete cascade on update cascade,
+    CONSTRAINT PARTECIPAZIONE_S_KEY_FILM foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita) on delete cascade on update cascade
 );
 
 
@@ -806,13 +813,9 @@ CREATE TABLE PARTECIPAZIONE_P(
     Data_uscita_Programma date NOT NULL,
     Ruolo varchar(64),
     Personaggio_interpretato varchar(64),
-    CONSTRAINT PARTECIPAZIONE_P_P_KEY primary key( Nome_Artista, Cognome_Artista,
- Data_di_nascita_Artista, Titolo_Programma, Data_uscita_Programma),
-    CONSTRAINT PARTECIPAZIONE_P_F_KEY_ARTISTA foreign key (Nome_Artista,
- Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome,
- Data_di_nascita)on delete cascade on update cascade,
-    CONSTRAINT PARTECIPAZIONE_F_F_KEY_PROGRAMMA foreign key (Titolo_Programma,
- Data_uscita_Programma) references PROGRAMMA(Titolo, Data_uscita) on delete cascade on update cascade
+    CONSTRAINT PARTECIPAZIONE_P_P_KEY primary key( Nome_Artista, Cognome_Artista, Data_di_nascita_Artista, Titolo_Programma, Data_uscita_Programma),
+    CONSTRAINT PARTECIPAZIONE_P_F_KEY_ARTISTA foreign key (Nome_Artista, Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome, Data_di_nascita)on delete cascade on update cascade,
+    CONSTRAINT PARTECIPAZIONE_F_F_KEY_PROGRAMMA foreign key (Titolo_Programma, Data_uscita_Programma) references PROGRAMMA(Titolo, Data_uscita) on delete cascade on update cascade
 );
 
 CREATE TABLE DISTRIBUZIONE(
@@ -820,13 +823,9 @@ CREATE TABLE DISTRIBUZIONE(
     Numero_Stagione int NOT NULL,
     Titolo_Serie varchar(128) NOT NULL,
     Data_uscita_Serie date NOT NULL,
-    CONSTRAINT DISTRIBUZIONE_P_KEY primary key(Nome_Piattaforma, Numero_Stagione, 
-Titolo_Serie, Data_uscita_Serie),
-    CONSTRAINT DISTRIBUZIONE_F_KEY_PIATTAFORMA foreign key(Nome_Piattaforma) 
-references PIATTAFORMA(Nome)on delete cascade on update cascade,
-    CONSTRAINT DISTRIBUZIONE_F_KEY_STAGIONE foreign key(Numero_Stagione, 
-Titolo_Serie, Data_uscita_Serie) references STAGIONE(Numero, Titolo_Serie,
-Data_uscita_Serie)on delete cascade on update cascade
+    CONSTRAINT DISTRIBUZIONE_P_KEY primary key(Nome_Piattaforma, Numero_Stagione, Titolo_Serie, Data_uscita_Serie),
+    CONSTRAINT DISTRIBUZIONE_F_KEY_PIATTAFORMA foreign key(Nome_Piattaforma) references PIATTAFORMA(Nome)on delete cascade on update cascade,
+    CONSTRAINT DISTRIBUZIONE_F_KEY_STAGIONE foreign key(Numero_Stagione, Titolo_Serie, Data_uscita_Serie) references STAGIONE(Numero, Titolo_Serie, Data_uscita_Serie)on delete cascade on update cascade
 );
 
 CREATE TABLE DIVISA(
@@ -839,29 +838,29 @@ CREATE TABLE DIVISA(
 );
 
 CREATE TABLE CONTIENE(
-  Numero_Stagione int NOT NULL,
-  Titolo_Stagione varchar(64) NOT NULL,
-  Data_uscita_Stagione date NOT NULL,
-  Titolo_Episodio varchar(128) NOT NULL,
-  CONSTRAINT CONTIENE_P_KEY primary key(Numero_Stagione, Titolo_Stagione, Data_uscita_Stagione, Titolo_Episodio),
-  CONSTRAINT CONTIENE_F_KEY_STAGIONE foreign key (Numero_Stagione, Titolo_Stagione, Data_uscita_Stagione) references STAGIONE(Numero, Titolo_Serie, Data_uscita_Serie) on delete cascade on update cascade,
-  CONSTRAINT CONTIENE_F_KEY_EPISODIO foreign key(Titolo_Episodio) references EPISODIO(Titolo) on delete cascade on update cascade 
+   Numero_Stagione int NOT NULL,
+   Titolo_Stagione varchar(64) NOT NULL,
+   Data_uscita_Stagione date NOT NULL,
+   Titolo_Episodio varchar(128) NOT NULL,
+   CONSTRAINT CONTIENE_P_KEY primary key(Numero_Stagione, Titolo_Stagione, Data_uscita_Stagione, Titolo_Episodio),
+   CONSTRAINT CONTIENE_F_KEY_STAGIONE foreign key (Numero_Stagione, Titolo_Stagione, Data_uscita_Stagione) references STAGIONE(Numero, Titolo_Serie, Data_uscita_Serie) on delete cascade on update cascade,
+   CONSTRAINT CONTIENE_F_KEY_EPISODIO foreign key(Titolo_Episodio) references EPISODIO(Titolo) on delete cascade on update cascade 
 );
 
 CREATE TABLE PROIEZIONE(
-    Titolo_Film varchar(64) NOT NULL,
-  Data_uscita_Film date NOT NULL,
-  Nome_Cinema varchar(128) NOT NULL,
-  Indirizzo_Cinema varchar(128) NOT NULL,
-  Provincia_Cinema varchar(128) NOT NULL,
-  Regione_Cinema varchar(128) NOT NULL,
-  Prezzo int,
-  Ora time,
-  Data_C date,
-  Sala int,
-  CONSTRAINT PROIEZIONE_P_K primary key(Titolo_Film, Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema,Regione_Cinema),
-  CONSTRAINT PROIEZIONE_F_K_FILM foreign key(Titolo_Film, Data_uscita_Film) references FILM(Titolo, Data_uscita) on delete cascade on update cascade,
-  CONSTRAINT PROIEZIONE_F_K_CINEMA foreign key(Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema) references CINEMA(Nome, Indirizzo, Provincia, Regione) on delete cascade on update cascade
+   Titolo_Film varchar(64) NOT NULL,
+   Data_uscita_Film date NOT NULL,
+   Nome_Cinema varchar(128) NOT NULL,
+   Indirizzo_Cinema varchar(128) NOT NULL,
+   Provincia_Cinema varchar(128) NOT NULL,
+   Regione_Cinema varchar(128) NOT NULL,
+   Prezzo int,
+   Ora time,
+   Data_C date,
+   Sala int,
+   CONSTRAINT PROIEZIONE_P_K primary key(Titolo_Film, Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema,Regione_Cinema),
+   CONSTRAINT PROIEZIONE_F_K_FILM foreign key(Titolo_Film, Data_uscita_Film) references FILM(Titolo, Data_uscita) on delete cascade on update cascade,
+   CONSTRAINT PROIEZIONE_F_K_CINEMA foreign key(Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema) references CINEMA(Nome, Indirizzo, Provincia, Regione) on delete cascade on update cascade
 );
 ```
 
@@ -927,7 +926,7 @@ VALUES
 INSERT INTO EPISODIO (Titolo, Durata, Cast_episodio)
 VALUES 
 ('Crazy Handful of Nothin', 55, 'Attore: Amethyst Bentley, Michael McElhatton, Ian McElhinney, Finn Jones'),
-('Exchanges', 23, 'Regista: Anya Josephine Marie Taylor-Joy'),
+('Exchanges', 23, 'Regista: Anya Josephine Marie Taylor-Joy');
 
 INSERT INTO FILM (Titolo, Data_uscita, Durata, Genere, Produzione, Paese, Troupe, Distribuzione, Descrizione_testuale, Voto_medio)
 VALUES 
@@ -937,41 +936,41 @@ VALUES
 ('Ghost Rider - Spirito di vendetta', '2012-03-23', 95, 'Azione', 'Medusa Film',  'USA', 'Sceneggiatura: Scott M. Gimple, David S. Goyer, Musica: Seth Hoffman', 'Medusa Film','Johnny Driverha deciso di allontanarsi per imparare a controllare i suoi nuovi poteri.', 0),
 ('Il gigante di ferro', '1999-08-14', 86, 'Animazione', 'Warner Bros.', 'USA', 'Fotografia:Carl Canga, Sceneggiatura: Ray Aragon, Musica: Michael Kamen', 'Warner Bros.', 'La storia è ambientata nel 1957, durante la guerra fredda, dopo il lancio dello Sputnik 1 avvenuto il 4 ottobre. Una strana e gigantesca figura precipita in mare nel corso di una tempesta.', 0);
 
-INSERT INTO Preferisce_F (Email_Utente,Titolo_Film,Data_uscita_Film)
+INSERT INTO PREFERISCE_F (Email_Utente,Titolo_Film,Data_uscita_Film)
 VALUES 
 ('volutpat.nulla.dignissim@inceptos.com','Matrix','1999-04-02'),
 ('nec.cursus@Phasellus.org','Teenage Mutant Ninja Turtles', '2014-05-20');
 
-INSERT INTO Preferisce_S (Email_Utente,Titolo_Serie,Data_uscita_Serie)
+INSERT INTO PREFERISCE_S (Email_Utente,Titolo_Serie,Data_uscita_Serie)
 VALUES 
 ('ligula.consectetuer@Morbi.co.uk','The Mandalorian', '2019-07-05'),
 ('ut.aliquam.iaculis@Sed.com','Breaking Bad', '2008-02-28');
 
-INSERT INTO Preferisce_P (Email_Utente,Titolo_Programma,Data_uscita_Programma)
+INSERT INTO PREFERISCE_P (Email_Utente,Titolo_Programma,Data_uscita_Programma)
 VALUES 
 ('tempus@blandit.ca','Blob','1989-01-12');
 
-INSERT INTO Riferisce_F (Id_Voto,Titolo_Film,Data_uscita_Film)
+INSERT INTO RIFERISCE_F (Id_Voto,Titolo_Film,Data_uscita_Film)
 VALUES
 (1,'Il gigante di ferro', '1999-08-14');
 
-INSERT INTO Riferisce_S (Id_Voto,Titolo_Serie,Data_uscita_Serie)
+INSERT INTO RIFERISCE_S (Id_Voto,Titolo_Serie,Data_uscita_Serie)
 VALUES
 (2,'Il trono di spade', '2011-11-03'),
 (3,'I Medici','2016-03-07');
 
-INSERT INTO Riferisce_P (Id_Voto,Titolo_Programma,Data_uscita_Programma)
+INSERT INTO RIFERISCE_P (Id_Voto,Titolo_Programma,Data_uscita_Programma)
 VALUES
 (4,'Alessandro Borghese - 4 ristoranti', '2015-12-10');
 
-INSERT INTO Distribuzione (Nome_Piattaforma, Numero_Stagione, Titolo_Serie, Data_uscita_Serie)
+INSERT INTO DISTRIBUZIONE (Nome_Piattaforma, Numero_Stagione, Titolo_Serie, Data_uscita_Serie)
 VALUES
 ('Netflix', 1, 'The Queen''s Gambit', '2020-02-04'),
 ('AmazonPrimeVideo', 2, 'Breaking Bad', '2008-02-28'),
 ('Infinity', 1, 'Breaking Bad', '2008-02-28'),
 ('Infinity', 3, 'Il trono di spade', '2011-11-03');
 
-INSERT INTO Divisa (Titolo_Serie, Data_uscita_Serie, Numero_Stagione)
+INSERT INTO DIVISA (Titolo_Serie, Data_uscita_Serie, Numero_Stagione)
 VALUES
 ('The Queen''s Gambit', '2020-02-04', 1),
 ('Breaking Bad', '2008-02-28', 2),
@@ -980,7 +979,7 @@ VALUES
 
 INSERT INTO ARTISTA (Nome, Cognome, Data_di_nascita, Luogo_di_nascita, Biografia_testuale, Ultimi_contenuti)
 VALUES
-('Anya Josephine Marie', 'Taylor-Joy','1996-04-16', 'Miami','Anya Taylor-Joy nasce a Miami, in Florida, ed è la più piccola di sei fratelli, nati da madre anglo-spagnola e padre scozzese-argentino. Cresce fino ai 6 anni a Buenos Aires (Argentina) per poi trasferirsi nel Regno Unito, a Londra, dove è cresciuta studiando danza classica.È bilingue spagnolo-inglese. ', 'Playmobil: The Movie(2019),The New Mutants(2020), The Queen's Gambit(2020)'),
+('Anya Josephine Marie', 'Taylor-Joy','1996-04-16', 'Miami','Anya Taylor-Joy nasce a Miami, in Florida, ed è la più piccola di sei fratelli, nati da madre anglo-spagnola e padre scozzese-argentino. Cresce fino ai 6 anni a Buenos Aires (Argentina) per poi trasferirsi nel Regno Unito, a Londra, dove è cresciuta studiando danza classica.È bilingue spagnolo-inglese. ', 'Playmobil: The Movie(2019),The New Mutants(2020), The Queen''s Gambit(2020)'),
 ('Maurizio', 'Crozza', '1959-12-5', 'Genova', 'Nato a Genova nel quartiere di Borgoratti, primogenito di 4 figli, si diploma nel 1980 alla Scuola di recitazione del Teatro Stabile di Genova sotto la guida, tra gli altri, di Gian Maria Volonté. Il suo primo approccio è con il teatro classico dove lavora con i registi Egisto Marcucci,[1] William Gaskill e Marco Sciaccaluga.', 'Peggio di così si muore(1995),Consigli per gli acquisti (1997), Tutti gli uomini del deficiente(1999))'),
 ('Amethyst','Bentley','1989-09-07','Villafranca d''Asti', 'Famosa per la sua interpretazione di Marylin Monroe in "un medico in famiglia", è stata nominata ai Golden Globe per la parte di pianta scenica nel film "Garfild"', 'Garfild(2018), Provaci ancora prof "il Film"(2008), Breaking Bad (2008)'),
 ('Mara','Herring','1940-05-13','Ajmer', 'Nata da madre polacca e padre turco si appassiona fin da tenera età allo spettacolo, icona di stile, ha recitato in molti film diretti da Checco Zalone', 'Tapinho(2014),La prima Repubblica(2015),Immigrato(2019),L''immunità di gregge(2020)'),
@@ -1004,10 +1003,10 @@ VALUES
 
 INSERT INTO CONTIENE (Numero_Stagione, Titolo_Stagione, Data_uscita_Stagione, Titolo_Episodio)
 VALUES
-(1,'The Queen''s Gambit','2020-02-04','"Exchanges"'),
-(1,  'Breaking Bad',  '2008-02-28', 'Crazy Handful of Nothin'),
+(1,'The Queen''s Gambit','2020-02-04','Exchanges'),
+(1,  'Breaking Bad',  '2008-02-28', 'Crazy Handful of Nothin');
 
-INSERT INTO Proiezione (Titolo_Film,Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema, Prezzo, Ora, Data_C, Sala)
+INSERT INTO PROIEZIONE (Titolo_Film,Data_uscita_Film, Nome_Cinema, Indirizzo_Cinema, Provincia_Cinema, Regione_Cinema, Prezzo, Ora, Data_C, Sala)
 VALUES
 ('Matrix','1999-04-02','Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 5, '16:30', '2020-11-10', 1),
 ('Teenage Mutant Ninja Turtles','2014-05-20','Cinema Multisala Lux','Via Massaciuccoli, 33, 00199 Roma' ,'RM', 'Lazio', 5, '16:45', '2020-09-10', 2),
@@ -1023,37 +1022,37 @@ VALUES
 
 ```SQL
 -- utente
-UPDATE utente SET nome_utente='Galvin Venezuela' WHERE nome_utente='Galvin Valenzuela';
-DELETE from utente WHERE nome_utente = 'Galvin Venezuela';
+UPDATE UTENTE SET nome_utente='Galvin Venezuela' WHERE nome_utente='Galvin Valenzuela';
+DELETE from UTENTE WHERE nome_utente = 'Galvin Venezuela';
 
 -- film
-UPDATE film SET titolo='Il Giggante de fero' WHERE titolo = 'Il gigante di ferro';
-DELETE from film WHERE titolo = 'Il Giggante de fero';
+UPDATE FILM SET titolo='Il Giggante de fero' WHERE titolo = 'Il gigante di ferro';
+DELETE from FILM WHERE titolo = 'Il Giggante de fero';
 
 -- piattaforma
-UPDATE piattaforma SET nome='La tv di casa mia' WHERE nome='Disney+';
-DELETE from piattaforma WHERE nome='La tv di casa mia';
+UPDATE PIATTAFORMA SET nome='La tv di casa mia' WHERE nome='Disney+';
+DELETE from PIATTAFORMA WHERE nome='La tv di casa mia';
 
 -- serie
-DELETE from serie WHERE titolo = 'Breaking Bad';
-UPDATE serie SET titolo='La serie con le spade' WHERE titolo = 'Il trono di spade';
+DELETE from SERIE WHERE titolo = 'Breaking Bad';
+UPDATE SERIE SET titolo='La serie con le spade' WHERE titolo = 'Il trono di spade';
 
 -- cinema/proiezione
-delete from cinema where nome='Cinema Lumière';
-update proiezione set nome_cinema='La Casa del Cinema',indirizzo_cinema='Salizada San Stae, 1990, 30135 Venezia', provincia_cinema='VE', regione_cinema='Veneto' where titolo_film='Matrix';
+DELETE from CINEMA WHERE nome='Cinema Lumière';
+UPDATE PROIEZIONE SET nome_cinema='La Casa del Cinema',indirizzo_cinema='Salizada San Stae, 1990, 30135 Venezia', provincia_cinema='VE', regione_cinema='Veneto' WHERE titolo_film='Matrix';
 
 -- artista
-update artista set Nome='Piero' where Luogo_di_nascita='Miami';
+UPDATE ARTISTA SET Nome='Piero' WHERE Luogo_di_nascita='Miami';
 ```
 
 ### Operazioni non consentite dalla base di dati (violazione vincolo di chiave esterna)
 
 ```SQL
-UPDATE distribuzione SET nome_piattaforma='La tv' WHERE nome_piattaforma='Netflix'
+UPDATE DISTRIBUZIONE SET nome_piattaforma='La tv' WHERE nome_piattaforma='Netflix'
 -- ERROR:  insert or update on table "distribuzione" violates foreign key constraint "distribuzione_f_key_piattaforma"
 -- DETAIL:  Key (nome_piattaforma)=(La tv) is not present in table "piattaforma".
 
-update proiezione set nome_cinema='The Space',indirizzo_cinema='Corso Torino 90, 30145 Beinasco', provincia_cinema='TO', regione_cinema='Piemonte' where titolo_film='Matrix'
+UPDATE PROIEZIONE SET nome_cinema='The Space',indirizzo_cinema='Corso Torino 90, 30145 Beinasco', provincia_cinema='TO', regione_cinema='Piemonte' WHERE titolo_film='Matrix'
 -- ERROR:  insert or update on table "proiezione" violates foreign key constraint "proiezione_f_k_cinema"
 -- DETAIL:  Key (nome_cinema, indirizzo_cinema, provincia_cinema, regione_cinema)=(The Space, Corso Torino 90, 30145 Beinasco, TO, Piemonte) is not present in table "cinema".
 ```
