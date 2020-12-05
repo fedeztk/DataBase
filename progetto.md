@@ -10,7 +10,6 @@ urlcolor: blue
 
 <!--
 TODO
-controllare i check e i not null (forse troppo pochi?)
 FIX
 NOTE
 in troupe -> sceneggiatura fotografia musiche
@@ -652,7 +651,9 @@ CREATE TABLE FILM(
 
 CREATE TABLE SERIE(
     Titolo varchar(64) NOT NULL,
-    Data_uscita date NOT NULL, Durata int CHECK(Durata>0), Genere varchar(128),
+    Data_uscita date NOT NULL,
+    Durata int CHECK(Durata>0),
+    Genere varchar(128),
     Produzione varchar(128),
     Paese varchar(128),
     Troupe varchar(1000),
