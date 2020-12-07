@@ -10,6 +10,9 @@ urlcolor: blue
 
 <!--
 TODO
+aggiustare le relazioni:
+se 1:1 -> cardinalità della relazione
+se 0:1 -> cardinalità al massimo della relazione
 FIX
 NOTE
 in troupe -> sceneggiatura fotografia musiche
@@ -190,8 +193,8 @@ all'interno del contenuto.
 \multicolumn{1}{|l|}{\textbf{Preferisce}}     & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{Si considera una media di 5 film preferiti per utente}                                                                                                                                                                                                     \\ \hline
 \multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{5}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voti}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Da mymovies si evince che ci sono circa \\ 200.00 recensioni totali, si considera un voto per recensione \\ più un voto per utente che non lascia il commento\end{tabular}}                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
-\multicolumn{1}{|l|}{\textbf{Contenuti}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies}                                                                                                                                                                                                              \\ \hline
+\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies}                                                                                                                                                                                                              \\ \hline
 \multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{20}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
 \multicolumn{1}{|l|}{\textbf{Programma}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{Film}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10.000}  & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
@@ -201,7 +204,7 @@ all'interno del contenuto.
 \multicolumn{1}{|l|}{\textbf{Divisa}}         & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Stesso valore di Stagione.}                                                                                                                                                                                                                                \\ \hline
 \multicolumn{1}{|l|}{\textbf{Stagione}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Media di 2 stagioni a serie.}                                                                                                                                                                                                                              \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contiene}}       & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Stesso valore di Episodio.}                                                                                                                                                                                                                                \\ \hline
-\multicolumn{1}{|l|}{\textbf{Distribuzione}}  & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{600}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che per ogni piattaforma è presente il circa  il 30\% \\ delle serie.\end{tabular}}                                                                                                                                    \\ \hline
+\multicolumn{1}{|l|}{\textbf{Distribuzione}}  & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{600}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che per ogni piattaforma è presente circa  il 30\% \\ delle serie.\end{tabular}}                                                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Episodio}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Media di 8-9 episodi a stagione}                                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Piattaforma}}    & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10}      & \multicolumn{1}{l|}{Si considerano le 10  principali piattaforme in Italia}                                                                                                                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Attore}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.000}   & \multicolumn{1}{l|}{Gli artisti rimanenti togliendo i registi}                                                                                                                                                                                                         \\ \hline
@@ -268,7 +271,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura}   \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -309,7 +312,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -357,7 +360,7 @@ Si è aggiunto a tale scopo un flag $isRedattore$ per indicare se l'utente è un
 Motivazione: si è scelto di accorpare le entità figlie della generalizzazione nell'entità padre, in quanto gli accessi alla tabelle sono per la maggior parte contestuali. Se osserviamo la tavola delle operazioni infatti notiamo che la visualizzazione di un artista avviene 1000 volte
 in un giorno, la visualizzazione di un contenuto (che richiede l'accesso ad entrambe le tabelle) invece occorre 500000 volte nello stesso tempo.
 Per questo accorpamento non è stato necessaria l'aggiunta di attributi, in quanto la differenza tra attore e regista viene già espressa
-dall'attributo ruolo della associazione partecipazione.
+dall'attributo ruolo dell'associazione partecipazione.
 
 **3. Contenuto - Programma, Film, Serie** (*generalizzazione totale ed esclusiva*)
 
@@ -804,7 +807,6 @@ CREATE TABLE PARTECIPAZIONE_S(
     CONSTRAINT PARTECIPAZIONE_F_F_KEY_ARTISTA foreign key (Nome_Artista, Cognome_Artista,Data_di_nascita_Artista) references ARTISTA(Nome,Cognome, Data_di_nascita)on delete cascade on update cascade,
     CONSTRAINT PARTECIPAZIONE_S_KEY_FILM foreign key (Titolo_Serie, Data_uscita_Serie) references SERIE(Titolo, Data_uscita) on delete cascade on update cascade
 );
-
 
 CREATE TABLE PARTECIPAZIONE_P(
     Nome_Artista varchar(128) NOT NULL,
