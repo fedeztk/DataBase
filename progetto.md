@@ -13,6 +13,8 @@ TODO
 aggiustare le relazioni:
 se 1:1 -> cardinalità della relazione
 se 0:1 -> cardinalità al massimo della relazione
+
+divisa non ha gli identificatori di serie nello schema relazionale + creazione tabelle
 FIX
 NOTE
 in troupe -> sceneggiatura fotografia musiche
@@ -451,7 +453,7 @@ Voto (\underline{ID}, Numero stelle,  Email Utente)
 
 Riferisce F (\underline{ID voto, Titolo film, Data uscita Film})
 
- > Riferisce.ID Voto references Voto.ID
+ > Riferisce F.ID Voto references Voto.ID
 
  > Riferisce F.Titolo Film references Film.Titolo
 
@@ -461,21 +463,21 @@ Riferisce F (\underline{ID voto, Titolo film, Data uscita Film})
 
 Riferisce S (\underline{ID voto, Titolo serie, Data uscita serie})
 
- > Riferisce.ID Voto references Voto.ID
+ > Riferisce S.ID Voto references Voto.ID
 
- > Riferisce F.Titolo Serie references Serie.Titolo
+ > Riferisce S.Titolo Serie references Serie.Titolo
 
- > Riferisce F.Data uscita Serie references Serie.Data uscita
+ > Riferisce S.Data uscita Serie references Serie.Data uscita
 
 \
 
 Riferisce P (\underline{ID voto, Titolo programma, Data uscita programma})
 
- > Riferisce.ID Voto references Voto.ID
+ > Riferisce P.ID Voto references Voto.ID
 
- > Riferisce F.Titolo Programma references Programma.Titolo
+ > Riferisce P.Titolo Programma references Programma.Titolo
 
- > Riferisce F.Data uscita Programma references Programma.Data uscita
+ > Riferisce P.Data uscita Programma references Programma.Data uscita
 
 \
 
@@ -511,7 +513,7 @@ Programma (\underline{Titolo, Data uscita}, Durata, Genere, Produzione, Paese, T
 
 Proiezione (\underline{Titolo Film, Data uscita Film, Nome Cinema, Indirizzo Cinema, Provincia Cinema,}
 
- > > \underline{Regione Cinema}, Prezzo, Ora, Data, Sala})
+ > > \underline{Regione Cinema}, Prezzo, Ora, Data, Sala)
 
  > Proiezione.Titolo Film references Film.Titolo
 
@@ -693,8 +695,7 @@ CREATE TABLE VOTO (
     Id serial,
     Numero_stelle int CHECK (Numero_stelle >=1 AND Numero_stelle <=5),
     Email_Utente varchar (64),
-    CONSTRAINT VOTO_F_KEY_UTENTE foreign key (Email_Utente)
-	references UTENTE(Email) on delete set null on update cascade,
+    CONSTRAINT VOTO_F_KEY_UTENTE foreign key (Email_Utente) references UTENTE(Email) on delete set null on update cascade,
     CONSTRAINT VOTO_P_KEY primary key (Id)
 );
 
