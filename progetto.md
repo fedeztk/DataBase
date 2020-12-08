@@ -382,9 +382,17 @@ del voto medio di film, serie e programmi). Nonostante fosse già presente nello
 La descrizione degli altri identificatori principali non è stata trattata in quanto si ritiene sufficientemente auto-esplicativa a partire
 dallo schema E-R + business-rules.
 
+\newpage
+
 ### Schema E-R ristrutturato + business rules
 
-![](./merge/erRistr_2020-11-25_15-37-43.jpg)
+<!-- ![](./merge/erRistr_2020-11-25_15-37-43.jpg) -->
+\begin{figure}[h!]
+\begin{adjustwidth}{-.9in}{-.9in}
+\centering
+\includegraphics[width=1.4\textwidth]{./merge/E-R.png}
+\end{adjustwidth}
+\end{figure}
 
 **Business rules:**
 
