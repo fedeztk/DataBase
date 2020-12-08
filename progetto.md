@@ -189,25 +189,25 @@ all'interno del contenuto.
 \begin{adjustwidth}{-.6in}{-.9in}
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Tipo}                  & \textit{Volume}              & \textit{Motivazione}                                                                                                                                                                                                                                                           \\ \hline
-\multicolumn{1}{|l|}{\textbf{Utente}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.000}  & \multicolumn{1}{l|}{Approssimazione della somma tra Iscritti e Redattori}                                                                                                                                                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Utente}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.010}  & \multicolumn{1}{l|}{Approssimazione della somma tra Iscritti e Redattori}                                                                                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Iscritto}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{50.000}  & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Ci si basa sulla piattaforma italiana mymovies che \\ contava nel 2018 una media di 500.000 utenti unici\\ giornalieri, si suppone che il 10\% sia registrato.\end{tabular}}                                                     \\ \hline
 \multicolumn{1}{|l|}{\textbf{Redattore}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10}      & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Mymovies conta 5 content manager, più altri collaboratori.\\ Si sceglie 10 come numero di profili abilitati alla modifica \\ calcolandone uno per ogni content manager più altri 5 \\ divisi tra i collaboratori.\end{tabular}} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Preferisce}}     & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{Si considera una media di 5 film preferiti per utente}                                                                                                                                                                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{5}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
+\multicolumn{1}{|l|}{\textbf{Assegna}}        & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{250.000}       & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Media di 5 voti per utente ottenuta dividendo i voti totali per\\ gli utenti\end{tabular}}                                                                                                                                      \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voti}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{250.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Da mymovies si evince che ci sono circa \\ 200.00 recensioni totali, si considera un voto per recensione \\ più un voto per utente che non lascia il commento\end{tabular}}                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
-\multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{40.000}  & \multicolumn{1}{l|}{Basandosi su dati di un articolo su mymovies}                                                                                                                                                                                                              \\ \hline
-\multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{20}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
+\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{250.000}     & \multicolumn{1}{l|}{Si considera che il 1\% di utenti vota un film.}                                                                                                                                                                                                           \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{12.300}  & \multicolumn{1}{l|}{Somma di: film, serie, programmi}                                                                                                                                                                                                              \\ \hline
+\multicolumn{1}{|l|}{\textbf{Partecipazione}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{100.000}      & \multicolumn{1}{l|}{Si stima un media di partecipazione a 20 contenuti per artista}                                                                                                                                                                                            \\ \hline
 \multicolumn{1}{|l|}{\textbf{Programma}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{500}     & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{Film}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10.000}  & \multicolumn{1}{l|}{Approssimazione dati mymovies}                                                                                                                                                                                                                             \\ \hline
 \multicolumn{1}{|l|}{\textbf{Proiezione}}     & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{420.000} & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che in ogni cinema ci siano 4 spettacoli al giorno, \\ moltiplicati per i 30 giorni (un film rimane in programmazione\\ un mese), moltiplicati per i cinema in Italia\end{tabular}}                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Cinema}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Numero di cinema presenti su mymovies}                                                                                                                                                                                                                     \\ \hline
-\multicolumn{1}{|l|}{\textbf{Serie}}          & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1.750}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Approssimazione basata sul fatto che sono 600 le serie\\ presenti su Netflix, considerando che non è presente 1 \\ serie su 3.\end{tabular}}                                                                                \\ \hline
-\multicolumn{1}{|l|}{\textbf{Divisa}}         & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Stesso valore di Stagione.}                                                                                                                                                                                                                                \\ \hline
-\multicolumn{1}{|l|}{\textbf{Stagione}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.500}   & \multicolumn{1}{l|}{Media di 2 stagioni a serie.}                                                                                                                                                                                                                              \\ \hline
-\multicolumn{1}{|l|}{\textbf{Contiene}}       & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Stesso valore di Episodio.}                                                                                                                                                                                                                                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Serie}}          & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1.800}   & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Approssimazione basata sul fatto che sono 600 le serie\\ presenti su Netflix, considerando che non è presente 1 \\ serie su 3.\end{tabular}}                                                                                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Divisa}}         & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{3.600}   & \multicolumn{1}{l|}{Stesso valore di Stagione.}                                                                                                                                                                                                                                \\ \hline
+\multicolumn{1}{|l|}{\textbf{Stagione}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.600}   & \multicolumn{1}{l|}{Media di 2 stagioni a serie.}                                                                                                                                                                                                                              \\ \hline
+\multicolumn{1}{|l|}{\textbf{Contiene}}       & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{30.000}  & \multicolumn{1}{l|}{Stesso valore di Episodio.}                                                                                                                                                                                                                                \\ \hline
 \multicolumn{1}{|l|}{\textbf{Distribuzione}}  & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{600}     & \multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Si stima che per ogni piattaforma è presente circa  il 30\% \\ delle serie.\end{tabular}}                                                                                                                                    \\ \hline
-\multicolumn{1}{|l|}{\textbf{Episodio}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{29.500}  & \multicolumn{1}{l|}{Media di 8-9 episodi a stagione}                                                                                                                                                                                                                           \\ \hline
+\multicolumn{1}{|l|}{\textbf{Episodio}}       & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{30.000}  & \multicolumn{1}{l|}{Media di 8-9 episodi a stagione}                                                                                                                                                                                                                           \\ \hline
 \multicolumn{1}{|l|}{\textbf{Piattaforma}}    & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{10}      & \multicolumn{1}{l|}{Si considerano le 10  principali piattaforme in Italia}                                                                                                                                                                                                    \\ \hline
 \multicolumn{1}{|l|}{\textbf{Attore}}         & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{3.000}   & \multicolumn{1}{l|}{Gli artisti rimanenti togliendo i registi}                                                                                                                                                                                                         \\ \hline
 \multicolumn{1}{|l|}{\textbf{Regista}}        & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{2.000}   & \multicolumn{1}{l|}{Si considera una media di 20 contenuti girati per regista}                                                                                                                                                                                                  \\ \hline
@@ -252,13 +252,13 @@ all'interno del contenuto.
 ### Analisi delle ridondanze
 
 1. Attributo età di artista (attributo derivabile): l'attributo età è derivabile considerando l'anno di nascita e la data odierna. Il mantenimento di questo attributo comporta l'aggiornamento costante di un dato (età) secondo la data di nascita dell'artista. Per il precedente motivo si è scelto di eliminare la ridondanza, diminuendo gli aggiornamenti dei dati relativi all'artista.
-2. Attributo Voto medio di contenuto (attributo derivabile da entità e conteggio): l'attributo voto medio è derivabile dal conteggio delle occorrenze dell'entità voto facente riferimento ad un dato contenuto. In questa somma, se si tiene anche conto del valore dei punteggi (il numero di stelle), si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
+2. Attributo voto medio di contenuto (attributo derivabile da entità e conteggio): l'attributo voto medio è derivabile dal conteggio delle occorrenze dell'entità voto facente riferimento ad un dato contenuto. In questa somma, se si tiene anche conto del valore dei punteggi (il numero di stelle), si può facilmente derivare che $\frac{totale punteggi}{cardinalit\grave{a} voto} = voto medio$. 
 
 Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più significativa.
 
 \begin{figure}
     \centering 
-    \includegraphics[width=200pt]{./merge/snippetRidondanza.jpg}
+    \includegraphics[width=200pt]{./merge/snippetRidondanzanew.jpg}
 \end{figure}
 
 <!-- ![](./merge/snippetRidondanza.png){ width=50% } --> 
@@ -273,7 +273,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura}   \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -287,7 +287,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}          & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Entità} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Scrittura} \\ \hline
 \end{tabular}%
 \end{table}
 
@@ -314,7 +314,7 @@ Si è scelto di analizzare la seconda ridondanza in quanto ritenuta più signifi
 \begin{tabular}{llll}
 \textit{Concetto}                             & \textit{Costrutto}             & \textit{Accessi}       & \textit{Tipo}                  \\ \hline
 \multicolumn{1}{|l|}{\textbf{Voto}}           & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
-\multicolumn{1}{|l|}{\textbf{Voto contenuto}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
+\multicolumn{1}{|l|}{\textbf{Riferisce}} & \multicolumn{1}{l|}{Associazione} & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \multicolumn{1}{|l|}{\textbf{Contenuto}}      & \multicolumn{1}{l|}{Entità}    & \multicolumn{1}{l|}{1} & \multicolumn{1}{l|}{Lettura} \\ \hline
 \end{tabular}%
 \end{table}
@@ -331,14 +331,14 @@ Costo totale in numero di accessi $180 + 1500000 = 1500180$.
 
 *Costi aggiuntivi in termini di spazio:* \
 Ipotesi: si utilizzano $4 byte$ per memorizzare il valore del voto medio. \
-Spazio totale necessario: $4 \times 40000 = 160000 = 160 Kbyte$ 
+Spazio totale necessario: $4 \times 12300 = 160000 = 49.2 Kbyte$ 
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lll}
                                        & \textit{Con ridondanza}        & \textit{Senza ridondanza}    \\ \cline{2-3} 
 \multicolumn{1}{l|}{\textit{Numero accessi}}    & \multicolumn{1}{l|}{500315}    & \multicolumn{1}{l|}{1500180} \\ \cline{2-3} 
-\multicolumn{1}{l|}{\textit{Spazio aggiuntivo}} & \multicolumn{1}{l|}{$160 Kbyte$} & \multicolumn{1}{l|}{$0 Kbyte$} \\ \cline{2-3} 
+\multicolumn{1}{l|}{\textit{Spazio aggiuntivo}} & \multicolumn{1}{l|}{$49.2 Kbyte$} & \multicolumn{1}{l|}{$0 Kbyte$} \\ \cline{2-3} 
 \end{tabular}
 \end{table}
 
@@ -357,7 +357,7 @@ Si è aggiunto a tale scopo un flag $isRedattore$ per indicare se l'utente è un
 
 **2. Artista - Attore, Regista** (*generalizzazione totale ed esclusiva*)
 
-![](./merge/gen2.jpg)
+![](./merge/gen2new.jpg)
 
 Motivazione: si è scelto di accorpare le entità figlie della generalizzazione nell'entità padre, in quanto gli accessi alla tabelle sono per la maggior parte contestuali. Se osserviamo la tavola delle operazioni infatti notiamo che la visualizzazione di un artista avviene 1000 volte
 in un giorno, la visualizzazione di un contenuto (che richiede l'accesso ad entrambe le tabelle) invece occorre 500000 volte nello stesso tempo.
