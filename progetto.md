@@ -390,7 +390,7 @@ dallo schema E-R + business-rules.
 \begin{figure}[h!]
 \begin{adjustwidth}{-.9in}{-.9in}
 \centering
-\includegraphics[width=1.4\textwidth]{./merge/E-R.png}
+\includegraphics[width=1.4\textwidth]{./merge/E-R_3.png}
 \end{adjustwidth}
 \end{figure}
 
