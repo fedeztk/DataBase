@@ -9,6 +9,12 @@ urlcolor: blue
 ---
 
 <!--
+NOTE ESAME
+- trigger per operazione voto medio (batch)
+- ERR: datainiziocollaborazione non null per utenti nel popolamento
+- ERR: tavola dei volumi -> riferisce -> descrizione sbagliata
+- ERR: operazioni -> visualizzazione artista -> 1/5 al posto di 1/500
+
 TODO
 cambiare 20 contenuti
 divisa non ha gli identificatori di serie nello schema relazionale + creazione tabelle
